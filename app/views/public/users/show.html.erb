@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-10 mx-auto">
+    <div class="col-6 rounded" id="user-title">
+      <h1 class="text-white py-1 text-center">My Page</h1>
+    </div>
+    <div class="row mt-4">
+      <div class="mr-2" id="icon-area">
+        <%= image_tag @user.user_image.variant(gravity: "Center", resize: "100x100!", crop: "100x100+0+0").processed,
+        class:"user-icon", id:"default-icon" %>
+      </div>
+      <div id="profile_area" class="col-9">
+        <%= render 'public/users/info', user:@user %>
+      </div>
+      <div class="d-flex flex-column justify-content-end">
+        <div>
+          <%= render 'public/relationships/button', user: @user %>
+        </div>
+        <% if @user == current_user %>
+        <div class="mt-2">
+          <%= link_to  "退会する", withdrawal_path, method: :patch,
+          class:"btn btn-danger btn-sm", "data-confirm" => "本当に退会しますか?" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="bg-white mt-5 border">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link nav-tag active text-secondary" href="#" data-id="course">投稿したコース</a>
+        <li class="nav-item">
+          <a class="nav-link nav-tag text-secondary" href="#" data-id="followed">
+          フォロー</a>
+        <li class="nav-item">
+          <a class="nav-link nav-tag text-secondary" href="#" data-id="follower">
+          フォロワー</a>
+        </li>
+      </ul>
+    </div>
+    <div class="bg-light border-bottom rounded-bottom border-left border-right">
+      <section class="content active bg-light" id ="course">
+        <% if @user.courses.present? %>
+        <div class="row">
+          <% @user.courses.each do |course| %>
+          <div class="col-3 px-1">
+            <div class="card p-1">
+              <%= image_tag course.course_images[0], size:"200x120", class:"card-img-top border-bottom" %>
+              <div class="card-bogy mb-1">
+                <h5 class="card-title mt-1"><%= course.title %></h5>
+                <p class="card-subtitle text-center"><%= course.address%><br/>
+                (<%= course.distance%>Km)</p>
+                <div class="d-flex flex-column justify-content-between">
+                  <div class="col-10 mx-auto mt-1 pt-2 border-top">
+                    <%= render 'public/favorites/button', course:course %>
+                  </div>
+                  <div class="col-9 mx-auto mt-2 mb-1">
+                    <%= render 'public/finishes/button', course:course %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        <% else %>
+          <div>
+            <h5 class="pl-3 pt-3 text-muted">投稿はありません。</h5>
+          </div>
+        <% end %>
+      </section>
+      <section class="content bg-light" id ="followed">
+        <% if @user.following.present? %>
+        <div class="row">
+          <% @user.following.each do |user| %>
+            <%= render 'public/users/user_card', user:user%>
+          <% end %>
+        </div>
+        <% else %>
+          <div>
+            <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
+          </div>
+        <% end %>
+      </section>
+      <section class="content bg-light" id ="follower">
+        <% if @user.followers.present? %>
+        <div class="row">
+          <% @user.followers.each do |user| %>
+            <%= render 'public/users/user_card', user:user%>
+          <% end %>
+        </div>
+        <% else %>
+          <div>
+            <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
+          </div>
+        <% end %>
+      </section>
+    </div>
+  </div>
+</div>
+<%= javascript_pack_tag 'public/profile' %>

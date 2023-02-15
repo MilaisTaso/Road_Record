@@ -1,0 +1,25 @@
+<div class="col-4 pr-1">
+  <div class="card p-1">
+    <div class="d-flex">
+      <div>
+        <%= link_to user_path(user) do %>
+          <%= image_tag user.user_image.variant(gravity: "Center", resize: "150x150!", crop: "150x150+0+0").processed,
+          class:"border-right" %>
+        <% end %>
+      </div>
+      <div class="col-6 px-1">
+        <%= link_to user_path(user) do %>
+          <h5 class="card-title mt-2 text-center text-muted">
+          <%= user.name %></h5>
+        <% end %>
+        <h6 class="card-subtitle mt-1 text-center border-bottom pb-1 mx-1 text-secondary">プロフィール</h6>
+        <% if user.introduction.present? %>
+          <p class="card-subtitle mt-2 ml-2 text-center" id="user-card-text">
+            <%= safe_join(user.introduction.split("\n"), tag(:br))%>
+          </p>
+        <% else %>
+          <p class="card-subtitle mt-2 ml-2 text-center text-muted" id="user-text">記載無し</p>
+        <% end %>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<% if course.finished_by?(current_user) %>
+    <%= link_to course_finishes_path(course), method: :delete, remote: true,
+    class:"text-muted h6 border rounded p-1" do %>
+      <i class="fas fa-running" aria-hidden="true"></i>
+      <%= course.finishes.count %> 走った
+    <% end %>
+  <% else %>
+    <%= link_to course_finishes_path(course), method: :post, remote: true,
+     class:"text-danger h6 border rounded p-1" do %>
+      <i class="fas fa-running"></i>
+      <%= course.finishes.count %> 走った
+    <% end %>
+  <% end %>

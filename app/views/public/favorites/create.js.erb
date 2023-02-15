@@ -1,0 +1,4 @@
+$("#favorite_<%= @course.id %>").html(
+"<%= j(render 'public/favorites/button', course: @course) %>");
+$("#finish_<%= @course.id %>").html(
+"<%= j(render 'public/finishes/button', course: @course) %>");

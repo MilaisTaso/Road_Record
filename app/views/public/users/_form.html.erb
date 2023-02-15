@@ -1,0 +1,37 @@
+<%= form_with model:@user do |f| %>
+  <div class="form-group">
+    <%= f.label :name, 'ニックネーム:'%><br/>
+    <%= f.text_field :name, class: "form-control name w-75" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :user_image, 'プロフィール画像' %><br/>
+    <%= f.file_field :user_image, class: "form-control-file user_image", accept: 'image/*' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :introduction, 'プロフィール:' %><br/>
+    <%= f.text_area :introduction, class: "form-control, w-75" , rows:"4"%>
+  </div>
+  <div class="form-group">
+    <%= f.submit '変更を保存', class: 'btn btn-secondary' %>
+  </div>
+<% end %>
+<script>
+  function readIcon(e) {
+    if(window.FileReader) {
+      var file  = e.target.files[0];
+      var reader = new FileReader();
+      if (file && file.type.match('image.*')) {
+        reader.readAsDataURL(file);
+      }
+      reader.onloadend = function (e) {
+        $('#default-icon').addClass('d-none');
+        $('.edit-icon').remove();
+        let img = $('<img class="user-icon edit-icon"/>');
+        img.attr('src', reader.result);
+        img.css({width: "100px", height: "100px"})
+        $('#icon-area').append(img);
+      }
+    }
+  }
+  $("#user_user_image").on("change", readIcon);
+</script>

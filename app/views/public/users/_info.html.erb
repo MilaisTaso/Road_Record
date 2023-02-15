@@ -1,0 +1,16 @@
+<div class="border rounded bg-white mr-2 px-2">
+  <p class="h5 text-secondary py-2">
+    <span>ニックネーム:</span>
+    <span><%= user.name %></span>
+  </p>
+  <p class="text-muted h5">プロフィール:</p>
+  <% if user.introduction.present? %>
+  <p class="text-muted h5">
+    <%= safe_join(user.introduction.split("\n"), tag(:br))%>
+  </p>
+  <% else %>
+    <p class="text-muted h5">
+    記載なし
+  </p>
+  <% end %>
+</div>

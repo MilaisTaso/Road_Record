@@ -1,0 +1,60 @@
+<%= form_with model: course do |f| %>
+      <div class="col-11 mx-auto bg-white mt-4 rounded pb-1">
+        <div class="form-group pt-3">
+          <%= f.label :course_images, '周辺画像:', class:"pr-2" %>
+          <%= f.file_field :course_images, multiple: true, accept: 'image/*' %>
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <% if @course.course_images.attached? %>
+                <% @course.course_images.each do |image| %>
+                  <div class="swiper-slide">
+                    <%= image_tag image, size:"700x400" %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+          <div class="form-group col-8">
+            <%= f.label :title, "コース名:" %><br/>
+            <%= f.text_field :title, class:"form-control" %>
+          </div>
+        <div class="row mt-4">
+          <div class="form-group col-3">
+            <%= f.label :suggest_time, "お勧めの時間帯", class:"bg-secondary text-white rounded p-1" %>
+            <%= f.select :suggest_time, Course.suggest_times_i18n.invert.to_a,
+            { include_blank: "選択" }, { class:"form-control" } %>
+          </div>
+          <div class="form-group col-3">
+            <%= f.label :signal_condition, "信号の有無",  class:"bg-secondary text-white rounded p-1" %>
+            <%= f.select :signal_condition, Course.signal_conditions_i18n.invert.to_a,
+            { include_blank: "選択" }, { class:"form-control" } %>
+          </div>
+          <div class="form-group col-3">
+            <%= f.label :traffic_volume, "交通量",  class:"bg-secondary text-white rounded p-1" %>
+            <%= f.select :traffic_volume, Course.traffic_volumes_i18n.invert.to_a,
+            { include_blank: "選択" }, { class:"form-control" } %>
+          </div>
+          <div class="form-group col-3">
+            <%= f.label :is_slope, "勾配の有無",  class:"bg-secondary text-white rounded p-1" %>
+            <%= f.select :is_slope, Course.is_slopes_i18n.invert.to_a,
+            { include_blank: "選択" }, { class:"form-control" } %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :introduction, "詳細情報" %><br/>
+          <%= f.text_area :introduction, { class:"form-control", rows:10 } %>
+        </div>
+        <div class="form-hidden">
+          <%= f.hidden_field :latlng %>
+          <%= f.hidden_field :address %>
+          <%= f.hidden_field :distance %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "投稿", class:"btn btn-sm btn-primary ml-3"%>
+        </div>
+      </div>
+    <% end %>

@@ -1,0 +1,6 @@
+<%= form_with(model: [course, comment]) do |f| %>
+  <div class="form-group">
+    <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに", class: "w-100" %>
+    <br><%= f.submit "コメントする", class: "btn btn-sm btn-primary" %>
+  </div>
+<% end %>

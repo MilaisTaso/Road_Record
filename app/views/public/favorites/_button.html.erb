@@ -1,0 +1,13 @@
+  <% if course.favorited_by?(current_user) %>
+    <%= link_to course_favorites_path(course), method: :delete, remote: true,
+    class:"text-muted h6 border p-1 rounded" do %>
+      <i class="fas fa-running" aria-hidden="true"></i>
+      <%= course.favorites.count %> 走りたい
+    <% end %>
+  <% else %>
+    <%= link_to course_favorites_path(course), method: :post, remote: true,
+     class:"text-primary h6 border p-1 rounded" do %>
+      <i class="fas fa-running"></i>
+      <%= course.favorites.count %> 走りたい
+    <% end %>
+  <% end %>

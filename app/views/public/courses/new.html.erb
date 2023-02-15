@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-10 mx-auto">
+    <div class="col-10 mx-auto mb-4 shadow-sm" id="new-title">
+      <h1 class=" text-white text-center pt-2">新規投稿</h2>
+    </div>
+    <div id="map" class="mx-auto"></div>
+    <%= render 'public/courses/form', course:@course %>
+  </div>
+</div>
+<%= javascript_pack_tag 'public/new' %>

@@ -1,0 +1,20 @@
+ja:
+  enums:
+    course:
+      suggest_time:
+        morning: "早朝"
+        noon: "昼間"
+        evening: "夕方"
+        night: "夜"
+      signal_condition:
+        a_lot_of: "多い"
+        a_few: "少ない"
+        not_exist: "無し"
+      traffic_volume:
+        heavy: "多い"
+        ordinary: "それなり"
+        light: "少ない"
+      is_slope:
+        steep: "急"
+        gentle: "緩い"
+        flat: "平坦"

@@ -1,0 +1,239 @@
+@import "colors";
+
+@font-face {
+  font-family: 'OpenBaskerv';
+  src: url('../fonts/OpenBaskerville.otf') format('opentype');
+}
+
+// 共通要素
+html,
+body {
+  height: fit-content;
+  background-color: #eaf4fc;
+  color: $black;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+#map {
+  height: 400px;
+  width: 700px;
+}
+
+.user-icon {
+  border: solid 2px $gray-white;
+  border-radius: 50%;
+  background-color: #fff;
+  text-decoration: dashed;
+  vertical-align: bottom;
+}
+
+// homes/top
+#main-visual {
+  background-image: url(../../assets/images/main-visual.jpg);
+  background-size: cover;
+  background-position: center center;
+  height: 500px;
+  position: relative;
+  border-radius: 0.5rem;
+}
+
+#main-visual-content {
+  background-color: #2f5d50;
+  opacity: 0.7;
+  top: 20px;
+  left: 5px;
+  border-radius: 0.5rem;
+  font-family: 'OpenBaskerv';
+}
+
+#top-title {
+  background-color: $purple;
+  border: solid 1px $gray-white;
+  border-radius: 0.5rem;
+}
+
+// course/index
+.index-img {
+  width: 220px;
+  height: 220px;
+  border-right: solid 2px $gray-white;
+}
+
+.index-content {
+  height: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: solid 2px $gray-white;
+  border-radius: 0.5rem;
+  background-color: #fff;
+}
+
+.card-body a h4 {
+  color: $black;
+}
+
+#index-title {
+  background-color: $ink-blue;
+  border-radius: 0.5rem;
+}
+
+.card-wrapper {
+  max-height: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-introduction {
+  height: 100px;
+  display: block;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.card-content {
+  font-size: 14px;
+}
+
+//swiper
+:root {
+  --swiper-navigation-color: $black;
+}
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0 0 0 10px !important;
+  background: #333 !important;
+}
+
+.swiper-pagination-bullet:first-child {
+  margin: 0 !important;
+}
+
+//course/show
+#show-title {
+  background-color: $holly-green;
+  border: solid 1px $gray-white;
+  border-radius: 0.5rem;
+}
+
+//course/new
+.map-btn {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 14px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  height: 30px;
+  cursor: pointer;
+  margin-left: 5px;
+
+  &:hover {
+    background: rgb(235, 235, 235);
+  }
+}
+
+input[type=button].button-primary {
+  background-color: #1a73e8;
+  color: white;
+
+  &:hover {
+    background-color: #1765cc;
+  }
+}
+
+input[type=button].button-secondary {
+  background-color: white;
+  color: #1a73e8;
+
+  &:hover {
+    background-color: #d2e3fc;
+  }
+}
+
+input[type=button].button-indigo {
+  background-color: #65318e;
+  color: white;
+
+  &:hover {
+    background-color: #522f60;
+  }
+}
+
+.map-input {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 14px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  line-height: 30px;
+  margin-right: 0;
+  min-width: 25%;
+}
+
+
+.distance-area {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 14px Roboto, Arial, sans-serif;
+  line-height: 30px;
+  color: #65318e;
+}
+
+#new-title {
+  background-color: $red;
+  border: solid 1px $gray-white;
+  border-radius: 0.5rem;
+}
+
+// course/edt
+#edit-title {
+  background-color: $yellow;
+  border: solid 1px $gray-white;
+  border-radius: 0.5rem;
+}
+
+#edt-map {
+  width: 700px;
+  height: 400px;
+}
+//users/show
+.content {
+  display: none;
+}
+
+.content.active {
+  display: block;
+}
+
+#user-title {
+  background-color: $orange;
+}
+
+#user-card-text {
+  font-size: 14px;
+  height: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#user-card-text {
+  overflow-x: scroll;
+}
+
+div > section {
+  height: 289px;
+}
