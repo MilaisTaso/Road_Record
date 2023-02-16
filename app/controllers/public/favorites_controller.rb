@@ -14,4 +14,5 @@ class Public::FavoritesController < ApplicationController
     favorite = current_user.favorites.find_by(course_id: @course.id)
     favorite.destroy
     render 'public/favorites/create'
+  end
 end
