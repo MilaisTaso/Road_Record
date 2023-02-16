@@ -49,4 +49,7 @@ class Course < ApplicationRecord
   def finished_by?(user)
     finishes.where(user_id: user.id).exists?
   end
+  
+  # 都道府県絞り込み検索用スコープ
+  scope :region_about, ->(region) {where("address like?", "#{region}%")}
 end

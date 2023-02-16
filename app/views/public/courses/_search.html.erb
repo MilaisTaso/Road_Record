@@ -1,0 +1,56 @@
+<div class="mt-3">
+<button class="text-white btn btn-sm" data-toggle="collapse"
+    data-target="#search_menu" aria-expand="false"
+    aria-controls="search_menu">絞り込み検索</button>
+</div>
+  <div class="collapse mt-5 col-10" id="search_menu">
+  <%= form_with scope: :search, url: courses_path, method: :get do |f| %>
+    <div class="form-group col-10 pl-0">
+      <%= f.label :region, '都道府県', class:"bg-secondary text-white rounded p-1" %>
+      <%= f.select :region,
+      {'北海道':'北海道', '青森県':'青森県','岩手県':'岩手県','宮城県':'宮城県',
+      '秋田県':'秋田県','山形県':'山形県','福島県':'福島県','茨城県':'茨城県',
+      '栃木県':'栃木県','群馬県':'群馬県','埼玉県':'埼玉県','千葉県':'千葉県',
+      '東京都':'東京都','神奈川県':'神奈川県','新潟県':'新潟県','富山県':'富山県',
+      '石川県':'石川県','福井県':'福井県','山梨県':'山梨県','長野県':'長野県',
+      '岐阜県':'岐阜県','静岡県':'静岡県','愛知県':'愛知県','三重県':'三重県',
+      '滋賀県':'滋賀県','京都府':'京都府','大阪府':'大阪府','兵庫県':'兵庫県',
+      '奈良県':'奈良県','和歌山県':'和歌山県','鳥取県':'鳥取県','島根県':'島根県',
+      '岡山県':'岡山県','広島県':'広島県','山口県':'山口県','徳島県':'徳島県',
+      '香川県':'香川県','愛媛県':'愛媛県','高知県':'高知県','福岡県':'福岡県',
+      '佐賀県':'佐賀県','長崎県':'長崎県','熊本県':'熊本県','大分県':'大分県',
+      '宮崎県':'宮崎県','鹿児島県':'鹿児島県','沖縄県':'沖縄県',
+      }, { include_blank: '選択'}, { class: 'form-control' } %>
+    </div>
+    <div class="row">
+      <div class="form-group col-5">
+        <%= f.label :suggest_time, "お勧めの時間帯", class:"bg-secondary text-white rounded p-1" %>
+        <%= f.select :suggest_time, Course.suggest_times_i18n.invert.to_a,
+        { include_blank: "選択" }, { class:"form-control" } %>
+      </div>
+      <div class="form-group col-5">
+        <%= f.label :signal_condition, "信号の有無",  class:"bg-secondary text-white rounded p-1" %>
+        <%= f.select :signal_condition, Course.signal_conditions_i18n.invert.to_a,
+        { include_blank: "選択" }, { class:"form-control" } %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-5">
+        <%= f.label :traffic_volume, "交通量",  class:"bg-secondary text-white rounded p-1" %>
+        <%= f.select :traffic_volume, Course.traffic_volumes_i18n.invert.to_a,
+        { include_blank: "選択" }, { class:"form-control" } %>
+      </div>
+      <div class="form-group col-5">
+        <%= f.label :is_slope, "勾配の有無",  class:"bg-secondary text-white rounded p-1" %>
+        <%= f.select :is_slope, Course.is_slopes_i18n.invert.to_a,
+        { include_blank: "選択" }, { class:"form-control" } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.submit "検索", class:"btn btn-sm btn-success ml-3"%>
+    </div>
+  <% end %>
+    <div class="form-group">
+      <%= link_to 'リセット', courses_path, class:"btn btn-sm btn-danger ml-3" %>
+    </div>
+</div>

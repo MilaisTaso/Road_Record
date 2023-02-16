@@ -4,7 +4,11 @@ class Public::CoursesController < ApplicationController
   end
 
   def index
-    @courses = Course.all
+    if params[:search].present?
+      search_courses(params[:search])
+    else
+      @courses = Course.all
+    end
   end
 
   def show
@@ -54,6 +58,7 @@ class Public::CoursesController < ApplicationController
         :signal_condition, :traffic_volume, :is_slope, course_images:[])
     end
 
+    #コースパラメータからポジションテーブルのレコードを作成する
     def caputure_positions(parameter, course)
       positions = parameter.split("|")
       positions.each do |position|
@@ -65,6 +70,24 @@ class Public::CoursesController < ApplicationController
         unless position_data.save
           render 'new'
         end
+      end
+    end
+    def search_courses(parameters)
+      @courses = Course.all
+      if parameters[:region].present?
+        @courses = @courses.region_about(parameters[:region])
+      end
+      if parameters[:suggest_time].present?
+        @courses = @courses.where(suggest_time: parameters[:suggest_time])
+      end
+      if parameters[:signal_condition].present?
+        @courses = @courses.where(signal_condition: parameters[:signal_condition])
+      end
+      if parameters[:traffic_volume].present?
+        @courses = @courses.where(traffic_volume: parameters[:traffic_volume])
+      end
+      if parameters[:is_slope].present?
+        @courses = @courses.where(is_slope: parameters[:is_slope])
       end
     end
 end
