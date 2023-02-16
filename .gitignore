@@ -40,6 +40,5 @@ yarn-debug.log*
 .yarn-integrity
 
 #追記したファイル・ディレクトリ
-bin/
 .env
 tmp/db/
