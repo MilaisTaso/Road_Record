@@ -1,22 +1,20 @@
 <% course.comments.each do |comment| %>
-  <div class="d-flex align-items-end mb-3">
-    <div class="mr-2">
+  <div class="d-flex align-items-center mb-3">
+    <div class="mr-2 comment-wrapper">
       <%= link_to user_path(comment.user), class:"text-secondary" do %>
         <%= image_tag comment.user.user_image.variant(gravity: "Center", resize: "500x500!", crop: "50x50+0+0").processed,
         class:"user-icon" %><br>
-        <%= comment.user.name %>
+        <span><%= comment.user.name %></span>
+      <% end %><br />
+      <% if comment.user == current_user %>
+        <%= link_to "消去", course_comment_path(course, comment),
+        method: :delete, class:"text-danger" %>
       <% end %>
     </div>
-    <div class="col-8 bg-white  border rounded">
+    <div class="col-10 bg-white  border rounded">
       <p class="text-muted mt-2">
         <%= safe_join(comment.comment.split("\n"), tag(:br))%>
       </p>
-    </div>
-    <div class="ml-2">
-      <% if comment.user == current_user %>
-        <%= link_to "消去", course_comment_path(course, comment),
-        method: :delete, class: "btn btn-sm btn-danger mt-2" %>
-      <% end %>
     </div>
   </div>
 <% end %>

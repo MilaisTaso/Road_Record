@@ -1,13 +1,14 @@
 <div class="row">
-  <div class="col-10 mx-auto">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-10 mx-auto">
     <div class="col-10 mx-auto mb-4" id="show-title">
       <h1 class=" text-white text-center pt-2 shadow-sm">コース詳細</h2>
     </div>
-    <div class="swiper mx-auto" style="width:700px">
+    <div class="swiper mx-auto col-11">
       <div class="swiper-wrapper">
         <% @course.course_images.each do |image| %>
         <div class="swiper-slide">
-          <%= image_tag image, size:"700x400" %>
+          <%= image_tag image.variant(gravity: "Center", resize: "700x400!",
+          crop: "700x400+0+0").processed %>
         </div>
         <% end %>
       </div>
@@ -17,44 +18,42 @@
     </div>
     <div class="bg-white col-10 mx-auto py-2 mt-4">
       <div class="row justify-content-start col-12 mx-auto mt-4 align-items-end border-bottom pb-2">
-        <div class="col-8">
-          <h3><%= @course.title %></h3>
-          <p class="text-muted mb-0"><%= @course.address%>(<%= @course.distance%>Km)</p>
+        <div class="col-8 show-content-wrapper">
+          <h3 class="text-center"><%= @course.title %></h3>
+          <p class="text-muted mb-0 text-center"><%= @course.address%>(<%= @course.distance%>Km)</p>
         </div>
         <div class="col-4">
           <%= link_to user_path(@course.user), class:"text-secondary" do %>
             <%= image_tag @course.user.user_image.variant(gravity: "Center", resize: "50x50!", crop: "50x50+0+0").processed,
             class:"user-icon" %>
-            <%= @course.user.name %>
+            <span class="show-user-link"><%= @course.user.name %></span>
           <% end %>
         </div>
       </div>
-      <div class="col-11 mx-auto d-flex">
-        <table class="table table-borderless mt-2">
-          <tr>
-            <th class="table-secondary">おすすめの時間帯:</th>
-            <th><%= @course.suggest_time_i18n%></th>
-          </tr>
-          <th class="p-1"></th>
-          <tr>
-            <th class="table-secondary">信号の有無:</th>
-            <th><%= @course.signal_condition_i18n%></th>
-          </tr>
-        </table>
-        <table class="table table-borderless mt-2">
-          <tr>
-            <th class="table-secondary">交通量:</th>
-            <th><%= @course.traffic_volume_i18n%></th>
-          </tr>
-          <th class="p-1"></th>
-          <tr>
-            <th class="table-secondary">勾配:</th>
-            <th><%= @course.is_slope_i18n%></th>
-          </tr>
-        </table>
+      <div class="col-12 col-md-11 mx-auto">
+        <div class="d-flex col-12 col-sm-10 mt-2 show-table-wrapper">
+          <div class="d-flex col-12 col-sm-12 col-md-6">
+            <div class="table-secondary raounded p-1">おすすめ時間帯:</div>
+            <div class="p-1 ml-2"><%= @course.suggest_time_i18n%></div>
+          </div>
+          <div class="d-flex col-12 col-sm-12 col-md-6">
+            <div class="table-secondary raounded p-1">信号の有無:</div>
+            <div class="p-1 ml-2"><%= @course.signal_condition_i18n%></div>
+          </div>
+        </div>
+        <div class="d-flex col-12 col-sm-10 mt-2 show-table-wrapper">
+          <div class="d-flex col-12 col-sm-12 col-md-6">
+            <div class="table-secondary raounded p-1">交通量:</div>
+            <div class="p-1 ml-2"><%= @course.traffic_volume_i18n%></div>
+          </div>
+          <div class="d-flex col-12 col-sm-12 col-md-6">
+            <div class="table-secondary raounded p-1">勾配:</div>
+            <div class="p-1 ml-2"><%= @course.is_slope_i18n %></div>
+          </div>
+        </div>
       </div>
-      <div class="row">
-      <div class="col-6  row mx-auto">
+      <div class="row mt-4 align-items-end">
+      <div class="col-6  row mx-auto show-link-btn">
         <div id="favorite_<%= @course.id %>" class="mr-4">
           <%= render 'public/favorites/button', course: @course %>
         </div>
@@ -63,7 +62,7 @@
         </div>
       </div>
         <% if @course.user == current_user %>
-        <div class="col-4 d-flex px-0">
+        <div class="col-4 d-flex px-0 show-edit-btn">
           <div class="mr-3">
             <%= link_to '編集', edit_course_path(@course), class:"btn btn-success btn-sm" %>
           </div>
@@ -74,12 +73,13 @@
       <% end %>
       </div>
     </div>
-      <div id="map" class="mx-auto mt-4"></div>
+      <div id="map" class="mx-auto mt-4 col-11"></div>
       <div class="col-9 mx-auto mt-4 h5">詳細情報:</div>
       <div class="col-9 bg-white mx-auto py-3 px-2">
         <%= safe_join(@course.introduction.split("\n"), tag(:br))%>
       </div>
       <div class="col-9 mx-auto mt-4">
+        <%= render 'layouts/error', obj:@comment %>
         <%= render 'public/comments/form', course: @course,  comment: @comment %>
       </div>
       <% if @course.comments.present? %>
@@ -91,4 +91,4 @@
   </div>
 </div>
 <div id="position_info" data-json="<%= @course.positions.to_json %>"></div>
-<%= javascript_pack_tag 'public/show' %>
+<%#= javascript_pack_tag 'public/show' %>

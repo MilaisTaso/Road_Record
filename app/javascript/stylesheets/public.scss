@@ -5,6 +5,21 @@
   src: url('../fonts/OpenBaskerville.otf') format('opentype');
 }
 
+//メディアクエリ
+$breakpoint: (
+  md: 'screen and (max-width: 900px)',
+  sm: 'screen and (max-width: 767px)',
+  x-sm: 'screen and (max-width: 650px)',
+  xs: 'screen and (max-width: 566px)',
+  sp: 'screen and (max-width: 450px)',
+);
+
+@mixin media($bp) {
+  @media #{map-get($breakpoint, $bp)} {
+    @content;
+  }
+}
+
 // 共通要素
 html,
 body {
@@ -19,7 +34,11 @@ body {
 
 #map {
   height: 400px;
-  width: 700px;
+  max-width: 700px;
+  background:green;
+  @include media(sp) {
+    height: 250px;
+  }
 }
 
 .user-icon {
@@ -28,6 +47,24 @@ body {
   background-color: #fff;
   text-decoration: dashed;
   vertical-align: bottom;
+}
+
+//swiper
+.swiper-wrapper {
+  @include media(sp) {
+    position: relative;
+  }
+}
+.swiper-slide{
+  max-width: 700px;
+  margin:0 auto;
+  @include media(sp) {
+    height: 250px;
+    top: -75px;
+  }
+}
+:root {
+  --swiper-navigation-color: $black;
 }
 
 // homes/top
@@ -69,6 +106,9 @@ body {
   border: solid 2px $gray-white;
   border-radius: 0.5rem;
   background-color: #fff;
+  @include media(sp) {
+    height: 180px;
+  }
 }
 
 .card-body a h4 {
@@ -78,12 +118,32 @@ body {
 #index-title {
   background-color: $ink-blue;
   border-radius: 0.5rem;
+  @include media(sp) {
+    #search-btn {
+      margin-top:10px;
+    }
+  }
 }
+
+#index-title-content {
+  @include media(sp) {
+    h1 {
+      font-size:20px;
+      margin-bottom: 4px;
+    }
+  }
+}
+
 
 .card-wrapper {
   max-height: 250px;
   overflow: hidden;
   text-overflow: ellipsis;
+    @include media(sp) {
+    h5 {
+      font-size:16px;
+    }
+  }
 }
 
 .card-introduction {
@@ -91,16 +151,49 @@ body {
   display: block;
   overflow-y: scroll;
   overflow-x: scroll;
+  @include media(sp) {
+    display: none;
+  }
 }
 
 .card-content {
   font-size: 14px;
 }
 
-//swiper
-:root {
-  --swiper-navigation-color: $black;
+.index-link-wrapper {
+  div {
+    a {
+      font-size: 14px;
+      @include media(md) {
+        font-size: 10px;
+      }
+      @include media(sm) {
+        font-size: 13px;
+      }
+    }
+  }
+  @include media(sp) {
+      flex-direction: column;
+      align-items:center;
+      gap: 5px
+    }
 }
+
+.index-img-wrapper {
+  img {
+      @include media(md) {
+      width: 190px;
+    }
+    @include media(sm) {
+      width: 225px;
+    }
+    @include media(sp) {
+      width: 180px;
+      width: 180px;
+    }
+  }
+}
+
 
 .swiper-pagination-bullet {
   width: 12px !important;
@@ -120,6 +213,60 @@ body {
   border-radius: 0.5rem;
 }
 
+.show-table-wrapper {
+  @include media(sm) {
+    flex-direction: column;
+    gap:10px
+  }
+  @include media(sp) {
+    font-size: 0.8rem;
+  }
+}
+.show-user-link::before {
+  @include media(x-sm) {
+    content: '\A';
+    white-space: pre;
+  }
+}
+
+.show-content-wrapper {
+  @include media(xs) {
+    h3 {
+      font-size: 1.5rem;
+    }
+    p {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.show-link-btn {
+  @include media(x-sm) {
+    flex-direction: column;
+    gap: 10px;
+  }
+  @include media(x-sm) {
+    a{
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.comment-wrapper {
+  @include media(x-sm) {
+    a {
+      font-size: 12px;
+    }
+  }
+}
+
+.show-edit-btn {
+  @include media(x-sm) {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+  }
+}
 //course/new
 .map-btn {
   background-color: #fff;
@@ -199,7 +346,7 @@ input[type=button].button-indigo {
   border-radius: 0.5rem;
 }
 
-// course/edt
+// course/edit
 #edit-title {
   background-color: $yellow;
   border: solid 1px $gray-white;

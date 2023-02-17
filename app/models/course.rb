@@ -32,7 +32,15 @@ class Course < ApplicationRecord
   has_many_attached :course_images
 
   #バリデーション
-  validates :course_images, presence: true, blob: { content_type: :image }
+  validates :title, presence: true, length: { minimum: 2, maximum: 20 }
+  validates :introduction, length: { minimum: 2, maximum: 400 }
+  validates :suggest_time, presence: true
+  validates :signal_condition, presence: true
+  validates :traffic_volume, presence: true
+  validates :is_slope, presence: true
+  validates :address, presence: true
+  validates :distance, presence: true
+  validates :course_images, blob: { content_type: :image }
 
   def default_image_attach
     if !self.course_images.attached?
@@ -49,7 +57,7 @@ class Course < ApplicationRecord
   def finished_by?(user)
     finishes.where(user_id: user.id).exists?
   end
-  
+
   # 都道府県絞り込み検索用スコープ
   scope :region_about, ->(region) {where("address like?", "#{region}%")}
 end

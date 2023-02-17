@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   #バリデーション
+  validates :name, presence: true
+  validates :introduction, length: { minimum: 2, maximum: 200 }
   validates :user_image, blob: { content_type: :image }
 
   def default_image_attach
