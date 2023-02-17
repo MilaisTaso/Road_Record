@@ -14,7 +14,6 @@ $(document).on("turbolinks:load", function () {
   $("#course_course_images").on("change", function (e) {
     swiperWrapper.empty();
     $('.swiper').css({
-      width: '700px',
       height: '400px'
     });
     let files = e.target.files;

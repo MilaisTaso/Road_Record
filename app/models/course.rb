@@ -32,14 +32,14 @@ class Course < ApplicationRecord
   has_many_attached :course_images
 
   #バリデーション
-  validates :title, presence: true, length: { minimum: 2, maximum: 20 }
+  validates :title, presence: true, length: { minimum: 2, maximum: 40 }
   validates :introduction, length: { minimum: 2, maximum: 400 }
   validates :suggest_time, presence: true
   validates :signal_condition, presence: true
   validates :traffic_volume, presence: true
   validates :is_slope, presence: true
   validates :address, presence: true
-  validates :distance, presence: true
+  validates :distance, presence: true, numericality: true
   validates :course_images, blob: { content_type: :image }
 
   def default_image_attach

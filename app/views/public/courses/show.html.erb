@@ -3,7 +3,7 @@
     <div class="col-10 mx-auto mb-4" id="show-title">
       <h1 class=" text-white text-center pt-2 shadow-sm">コース詳細</h2>
     </div>
-    <div class="swiper mx-auto col-11">
+    <div class="swiper mx-auto">
       <div class="swiper-wrapper">
         <% @course.course_images.each do |image| %>
         <div class="swiper-slide">
@@ -91,4 +91,4 @@
   </div>
 </div>
 <div id="position_info" data-json="<%= @course.positions.to_json %>"></div>
-<%#= javascript_pack_tag 'public/show' %>
+<%= javascript_pack_tag 'public/show' %>

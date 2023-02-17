@@ -20,7 +20,7 @@
   </script>
 <% else %>
   <% if current_user.following?(user) %>
-    <%= link_to 'フォロー解除', user_relationships_path(user), method: :delete, remote: true, class: "btn btn-outline-secondary btn-block" %>
+    <%= link_to 'フォロー解除', user_relationships_path(user.id), method: :delete, remote: true, class: "btn btn-outline-secondary btn-block" %>
   <% else %>
     <%= link_to 'フォロー', user_relationships_path(user), method: :post,
     remote: true, class: "btn btn-outline-secondary btn-block" %>

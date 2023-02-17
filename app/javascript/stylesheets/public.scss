@@ -50,14 +50,18 @@ body {
 }
 
 //swiper
+.swiper {
+  width: 700px;
+  @include media(sm) {
+    width: 97%;
+  }
+}
 .swiper-wrapper {
   @include media(sp) {
     position: relative;
   }
 }
 .swiper-slide{
-  max-width: 700px;
-  margin:0 auto;
   @include media(sp) {
     height: 250px;
     top: -75px;
@@ -353,10 +357,6 @@ input[type=button].button-indigo {
   border-radius: 0.5rem;
 }
 
-#edt-map {
-  width: 700px;
-  height: 400px;
-}
 //users/show
 .content {
   display: none;
@@ -372,15 +372,39 @@ input[type=button].button-indigo {
 
 #user-card-text {
   font-size: 14px;
-  height: 72px;
   overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#user-card-text {
-  overflow-x: scroll;
 }
 
 div > section {
-  height: 289px;
+  min-height: 120px;
+}
+.user-card {
+  height: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @include media(sp) {
+    height: 319px;
+   
+  }
+}
+.section-card-wrapper {
+  @include media(sp) {
+    max-width: 95%;
+    margin: 0 auto;
+    img {
+      height: 160px;
+    }
+  }
+}
+
+.nav-tabs li a {
+  @include media(sp) {
+    font-size: 0.75rem;
+  }
+}
+.section-content {
+  @include media(sp) {
+    flex-direction: column;
+    gap: 10px
+  }
 }

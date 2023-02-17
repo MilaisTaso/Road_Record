@@ -22,26 +22,27 @@ class Public::CoursesController < ApplicationController
 
   def create
     #Courseレコードの保存処理
-    course = current_user.courses.new(course_params)
+    @course = current_user.courses.new(course_params)
+    caputure_positions(params[:course][:latlng], @course)
     #取得したアドレスを配列にした後、反転・結合して正規住所にし、保存
     address = params[:course][:address].split(',')
-    course.address = address.reverse.join('')
+    @course.address = address.reverse.join('')
     #取得した距離を数字に直して、保存
-    course.distance = params[:course][:distance].to_f
-    if course.save
-      caputure_positions(params[:course][:latlng], course)
-      redirect_to courses_path
+    @course.distance = params[:course][:distance].to_f
+    if @course.save && @course.positions.present?
+      redirect_to course_path(@course)
     else
+      flash[:alert] = 'マップからコース情報を登録して下さい'
       render 'new'
     end
   end
 
   def update
-    course = Course.find(params[:id])
-    if course.update(course_params)
-      redirect_to courses_path
+    @course = Course.find(params[:id])
+    if @course.update(course_params)
+      redirect_to course_path(@course)
     else
-      render 'index'
+      render 'edit'
     end
   end
 
@@ -60,15 +61,15 @@ class Public::CoursesController < ApplicationController
 
     #コースパラメータからポジションテーブルのレコードを作成する
     def caputure_positions(parameter, course)
-      positions = parameter.split("|")
-      positions.each do |position|
-        lat_lng = position.split(",")
-        position_data = course.positions.new(
-          lat: lat_lng[1],
-          lng: lat_lng[0]
-        )
-        unless position_data.save
-          render 'new'
+      if parameter.present?
+        positions = parameter.split("|")
+        positions.each do |position|
+          lat_lng = position.split(",")
+          position_data = course.positions.new(
+            lat: lat_lng[1],
+            lng: lat_lng[0]
+          )
+          position_data.save
         end
       end
     end
