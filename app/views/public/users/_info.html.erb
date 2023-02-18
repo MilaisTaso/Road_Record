@@ -1,7 +1,11 @@
 <div class="border rounded bg-white mr-2 px-2">
   <p class="h5 text-secondary py-2">
     <span>ニックネーム:</span>
-    <span><%= user.name %></span>
+    <% unless user.guest_match? %>
+      <span><%= user.name %></span>
+    <% else %>
+      <span>~ ゲスト ~</span>
+    <% end %>
   </p>
   <p class="text-muted h5">プロフィール:</p>
   <% if user.introduction.present? %>

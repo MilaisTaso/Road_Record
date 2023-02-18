@@ -60,4 +60,5 @@ class Course < ApplicationRecord
 
   # 都道府県絞り込み検索用スコープ
   scope :region_about, ->(region) {where("address like?", "#{region}%")}
+  scope :key_word_search, ->(key_word) {where("title like?", "%#{key_word}%")}
 end

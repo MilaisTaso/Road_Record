@@ -1,4 +1,5 @@
 class Public::CoursesController < ApplicationController
+  before_action :user_verification, only: [:edit, :update, :destroy]
   def new
     @course = Course.new
   end
@@ -73,8 +74,13 @@ class Public::CoursesController < ApplicationController
         end
       end
     end
+    
+    #チェインメソッドで絞り込み検索を行う
     def search_courses(parameters)
       @courses = Course.all
+      if parameters[:key_word].present?
+        @courses = @courses.key_word_search(parameters[:key_word])
+      end
       if parameters[:region].present?
         @courses = @courses.region_about(parameters[:region])
       end
@@ -89,6 +95,13 @@ class Public::CoursesController < ApplicationController
       end
       if parameters[:is_slope].present?
         @courses = @courses.where(is_slope: parameters[:is_slope])
+      end
+    end
+    
+    def user_verification
+      course = Course.find(params[:id])
+      if course.user != current_user
+        redirect_to root_path, flash[:alert] = "編集権限がありません"
       end
     end
 end

@@ -14,6 +14,7 @@
       <div id="profile_area" class="col-11 col-md-8 col-lg-8">
         <%= render 'public/users/info', user:@user %>
       </div>
+      <% unless current_user.guest_match? %>
       <div class="d-flex flex-column justify-content-end">
         <div class="mt-2" id="user-btn">
           <%= render 'public/relationships/button', user: @user %>
@@ -25,6 +26,7 @@
         </div>
         <% end %>
       </div>
+    <% end %>
     </div>
     <div class="bg-white mt-5 border col-12">
       <ul class="nav nav-tabs" role="tablist">

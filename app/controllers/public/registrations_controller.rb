@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Public::RegistrationsController < Devise::RegistrationsController
+  before_action :check_nomal_user, only: [:update, :destroy]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -59,4 +60,12 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  
+  private
+    #ゲストユーザーかどうか確認する
+    def check_nomal_user
+      if resource.name == "guestuser" && resource.email == "guest@example.com"
+        redirect_to root_path, alert: "ゲストユーザの編集・消去はできません。"
+      end
+    end
 end

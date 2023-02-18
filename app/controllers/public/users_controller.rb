@@ -1,4 +1,5 @@
 class Public::UsersController < ApplicationController
+  before_action :user_verification, only: [:update,:withdrawal]
   
   def show
     User.includes(:favorites);
@@ -21,7 +22,15 @@ class Public::UsersController < ApplicationController
     redirect_to root_path
   end
 
-  def user_params
-    params.require(:user).permit(:name, :introduction, :user_image)
-  end
+  private
+    def user_params
+      params.require(:user).permit(:name, :introduction, :user_image)
+    end
+    
+    def user_verification
+      user = User.find(params[id])
+      if user != current_user
+        redirect_to root_path, flash[:alert] = "編集権限がありません"
+      end
+    end
 end

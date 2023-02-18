@@ -5,7 +5,11 @@
 </div>
   <div class="collapse mt-5 col-12" id="search_menu">
   <%= form_with scope: :search, url: courses_path, method: :get do |f| %>
-    <div class="form-group col-12 pl-0">
+    <div class="form-group col-10 pl-0">
+        <%= f.label :key_word, "キーワード検索", class:"bg-secondary text-white rounded p-1" %>
+        <%= f.text_field :key_word, class:"form-control" %>
+      </div>
+    <div class="form-group col-10 pl-0">
       <%= f.label :region, '都道府県', class:"bg-secondary text-white rounded p-1" %>
       <%= f.select :region,
       {'北海道':'北海道', '青森県':'青森県','岩手県':'岩手県','宮城県':'宮城県',

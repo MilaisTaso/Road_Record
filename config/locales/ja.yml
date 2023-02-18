@@ -1,4 +1,26 @@
 ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+      course: "コース"
+    attributes:
+      id: "ID"
+      created_at: "作成日時"
+      updated_at: "更新日時"
+      user:
+        name: "名前"
+        introduction: "プロフィール"
+        user_image: "プロフィール画像"
+        is_deleted: "退会"
+      course:
+        title: "コース名"
+        introduction: "詳細情報"
+        suggest_time: "お勧め時間帯"
+        signal_condition: "信号"
+        traffic_volume: "交通量"
+        is_slope: "勾配"
+        address: "住所情報"
+        distance: "コース距離"
   enums:
     course:
       suggest_time:

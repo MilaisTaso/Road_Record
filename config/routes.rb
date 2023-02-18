@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
-    sessions: 'public/sessions'
+    sessions: 'public/sessions',
   }
+  
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in', as:'guest_sign_in'
+  end
+  
   scope module: :public do
     root to: "homes#top"
 
@@ -15,6 +20,12 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :update] do
       resource :relationships, only:[:create, :destroy]
     end
+  end
+  
+  namespace :admin do
+    resources :users, only: [:index, :show, :destroy]
+    resources :courses, only: [:index, :show, :update, :destroy]
+    get '/', to: 'users#index'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
