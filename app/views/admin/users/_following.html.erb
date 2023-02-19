@@ -1,0 +1,26 @@
+<table class="table table-hover mt-4 table-striped bg-white border">
+  <thead>
+    <tr>
+      <th>ユーザーID</th>
+      <th>ユーザー名</th>
+      <th>フォロー数</th>
+      <th>フォロワー数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% user.following.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+          <td>
+            <%= link_to admin_user_path(user) do %>
+            <%= image_tag user.user_image.variant(
+            gravity: "Center", resize: "35x35!", crop: "35x35+0+0").processed%>
+              <%= user.name %>
+            <% end %>
+          </td>
+          <td><%= user.following.count %></td>
+          <td><%= user.followers.count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>

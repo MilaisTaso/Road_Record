@@ -1,0 +1,30 @@
+<% if @user.followers.present? %>
+  <div class="row section-content">
+    <% user.followers.each do |user| %>
+    <div class="col-6 col-md-3 px-1 section-card-wrapper">
+      <div class="card p-1 user-card">
+        <%= link_to user_path(user) do %>
+          <%= image_tag user.user_image, size:"200x120", class:"card-img-top border-bottom" %>
+        <% end %>
+          <div class="card-bogy mb-1">
+            <%= link_to user_path(user) do %>
+              <h5 class="card-title mt-1 text-center text-muted">
+              <%= user.name %></h5>
+            <% end %>
+            <p class="card-subtitle text-center border-bottom pb-1 mx-1 text-secondary mx-1">プロフィール</p>
+            <% if user.introduction.present? %>
+              <p class="card-subtitle mt-2 mx-1 text-center" id="user-card-text">
+                <%= safe_join(user.introduction.split("\n"), tag(:br))%>
+              </p>
+            <% else %>
+              <p class="card-subtitle mt-2 ml-2 text-center text-muted" id="user-text">記載無し</p>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  <% end %>
+<% else %>
+  <div>
+    <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
+  </div>
+<% end %>

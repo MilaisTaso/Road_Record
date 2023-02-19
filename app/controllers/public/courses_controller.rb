@@ -25,13 +25,15 @@ class Public::CoursesController < ApplicationController
   def create
     #Courseレコードの保存処理
     @course = current_user.courses.new(course_params)
-    caputure_positions(params[:course][:latlng], @course)
     #取得したアドレスを配列にした後、反転・結合して正規住所にし、保存
     address = params[:course][:address].split(',')
     @course.address = address.reverse.join('')
     #取得した距離を数字に直して、保存
     @course.distance = params[:course][:distance].to_f
-    if @course.save && @course.positions.present?
+    if @course.save
+      caputure_positions(params[:course][:latlng], @course)
+    end
+    if @course.positions.present?
       redirect_to course_path(@course)
     else
       flash[:alert] = 'マップからコース情報を登録して下さい'
@@ -57,8 +59,8 @@ class Public::CoursesController < ApplicationController
   private
     #ストロングパラメータ
     def course_params
-      params.require(:course).permit(:title, :introduction, :suggest_time,
-        :signal_condition, :traffic_volume, :is_slope, course_images:[])
+      params.require(:course).permit(:title, :introduction, :suggest_time,:signal_condition,
+      :traffic_volume, :is_slope, :distance, course_images:[])
     end
 
     #コースパラメータからポジションテーブルのレコードを作成する

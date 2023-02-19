@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       resource :finishes, only: [:create, :destroy]
     end
     patch 'users/withdrawal', to: 'users#withdrawal', as: 'withdrawal'
-    resources :users, only: [:show, :update] do
+    resources :users, only: [:show, :update, :destroy] do
       resource :relationships, only:[:create, :destroy]
     end
   end

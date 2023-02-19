@@ -1,2 +1,30 @@
-<h1>Admin::Courses#index</h1>
-<p>Find me in app/views/admin/courses/index.html.erb</p>
+<div class="row">
+  <div class="col-11">
+    <h2>コース一覧</h2>
+    <table class="table table-hover mt-4 table-striped bg-white border">
+      <thead>
+        <tr>
+          <th>コースID</th>
+          <th>コース画像</th>
+          <th>コース名</th>
+          <th>ユーザー</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.id %></td>
+          <td><%= image_tag course.course_image[0].variant(
+          gravity: "Center", resize: "50x50!", crop: "50x50+0+0").processed %></td>
+          <td>
+            <%= link_to admin_course_path(course) do %>
+            <%= course.title %>
+            <% end %>
+          </td>
+          <td><%= course.user.name %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

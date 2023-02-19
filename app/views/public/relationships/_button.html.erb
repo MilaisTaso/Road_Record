@@ -1,28 +1,6 @@
-<% if user == current_user %>
-  <span class="btn btn-sm btn-success" id="edit-btn">編集する</span>
-  <script>
-    $(document).on('turbolinks:load', function(){
-      let is_edit = false;
-      $('#edit-btn').click(function(){
-        if (!is_edit) {
-          $("#profile_area").html("<%= j(render 'public/users/form', user:@user) %>");
-          is_edit = true;
-          $('#edit-btn').text('キャンセル');
-        } else {
-          $("#profile_area").html("<%= j(render 'public/users/info', user:@user) %>");
-          is_edit = false;
-          $('#edit-btn').text('編集する');
-          $('#default-icon').removeClass('d-none');
-          $('.edit-icon').remove();
-        }
-      });
-    });
-  </script>
+<% if current_user.following?(user) %>
+  <%= link_to 'フォロー解除', user_relationships_path(user.id), method: :delete, remote: true, class: "btn btn-outline-secondary btn-block" %>
 <% else %>
-  <% if current_user.following?(user) %>
-    <%= link_to 'フォロー解除', user_relationships_path(user.id), method: :delete, remote: true, class: "btn btn-outline-secondary btn-block" %>
-  <% else %>
-    <%= link_to 'フォロー', user_relationships_path(user), method: :post,
-    remote: true, class: "btn btn-outline-secondary btn-block" %>
-  <% end %>
+  <%= link_to 'フォロー', user_relationships_path(user), method: :post,
+  remote: true, class: "btn btn-outline-secondary btn-block" %>
 <% end %>

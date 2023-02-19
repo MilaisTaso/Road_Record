@@ -1,2 +1,75 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="row">
+  <div class="col-12 mx-auto">
+    <div class="col-10 rounded" id="user-title">
+      <h1 class="text-white py-1 text-center">My Page</h1>
+    </div>
+    <div class="row mt-4 mx-auto align-items-end">
+      <div class="col-12">
+      </div>
+      <div class="mr-2 mb-2" id="icon-area">
+        <%= image_tag @user.user_image.variant(gravity: "Center", resize: "90x90!", crop: "90x90+0+0").processed,
+        class:"user-icon", id:"default-icon" %>
+      </div>
+      <div id="profile_area" class="col-11 col-md-8 col-lg-8">
+        <%= render 'public/users/info', user:@user %>
+      </div>
+        <div class="mt-2">
+          <%= link_to  "消去", user_path(@user), method: :delete,
+          class:"btn btn-danger btn-sm", "data-confirm" => "本当に消去しますか?" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 row mt-3">
+      <div class="col-12 col-sm-6 mt-2">
+        <h3>投稿したコース</h3>
+        <% if @user.courses.present? %>
+            <table class="table table-hover mt-4 table-striped bg-white border">
+              <thead>
+                <tr>
+                  <th>コースーID</th>
+                  <th>コースー名</th>
+                  <th>走りたい</th>
+                  <th>走った</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @user.courses.each do |course| %>
+                  <tr>
+                    <td><%= course.id %></td>
+                    <td class="pb-0">
+                      <%= link_to admin_course_path(course), class:"d-inline-flex" do %>
+                      <%= image_tag course.course_images[0].variant(
+                      gravity: "Center", resize: "35x35!", crop: "35x35+0+0").processed,
+                      class:"pr-1"%>
+                      <%= course.title %>
+                      <% end %>
+                    </td>
+                    <td><%= course.favorites.count %></td>
+                    <td><%= course.finishes.count %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+        <% else %>
+            <h6 class="pl-3 pt-3 text-muted">投稿はありません。</h6>
+        <% end %>
+      </div>
+      <div class="col-12 col-sm-6 mt-2">
+        <h3>フォロー</h3>
+        <% if @user.following.present? %>
+          <%= render 'admin/users/following', user:user %>
+        <% else %>
+          <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
+        <% end %>
+      </div>
+      <div class="col-12 col-sm-6 mt-2">
+        <h3>フォロワー</h3>
+        <% if @user.followers.present? %>
+          <%= render 'admin/users/followers', user:user %>
+        <% else %>
+          <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

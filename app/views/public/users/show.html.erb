@@ -14,19 +14,23 @@
       <div id="profile_area" class="col-11 col-md-8 col-lg-8">
         <%= render 'public/users/info', user:@user %>
       </div>
-      <% unless current_user.guest_match? %>
       <div class="d-flex flex-column justify-content-end">
-        <div class="mt-2" id="user-btn">
-          <%= render 'public/relationships/button', user: @user %>
-        </div>
-        <% if @user == current_user %>
-        <div class="mt-2">
-          <%= link_to  "退会する", withdrawal_path, method: :patch,
-          class:"btn btn-danger btn-sm", "data-confirm" => "本当に退会しますか?" %>
-        </div>
+      <% if @user == current_user %>
+        <% if !current_user.guest_match? %>
+          <div class="mt-2" id="user-btn">
+            <%= render 'public/users/button', user: @user %>
+          </div>
+          <div class="mt-2">
+            <%= link_to  "退会する", withdrawal_path, method: :patch,
+            class:"btn btn-danger btn-sm", "data-confirm" => "本当に退会しますか?" %>
+          </div>
         <% end %>
-      </div>
+      <% else %>
+        <div id="relationships_btn">
+          <%= render 'public/relationships/button', user:@user %>
+        </div>
     <% end %>
+    </div>
     </div>
     <div class="bg-white mt-5 border col-12">
       <ul class="nav nav-tabs" role="tablist">
@@ -54,10 +58,10 @@
                 <p class="card-subtitle text-center"><%= course.address%><br/>
                 (<%= course.distance%>Km)</p>
                 <div class="d-flex flex-column justify-content-between">
-                  <div class="col-10 mx-auto text-center mt-1 pt-2 border-top">
+                  <div class="col-10 mx-auto text-center mt-1 pt-2 border-top" id="favorite_<%= course.id %>">
                     <%= render 'public/favorites/button', course:course %>
                   </div>
-                  <div class="col-9 mx-auto text-center mt-2 mb-1">
+                  <div class="col-9 mx-auto text-center mt-2 mb-1" id="finish_<%= course.id %>">
                     <%= render 'public/finishes/button', course:course %>
                   </div>
                 </div>
@@ -72,30 +76,10 @@
         <% end %>
       </section>
       <section class="content bg-light" id ="followed">
-        <% if @user.following.present? %>
-        <div class="row section-content">
-          <% @user.following.each do |user| %>
-            <%= render 'public/users/user_card', user:user%>
-          <% end %>
-        </div>
-        <% else %>
-          <div>
-            <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
-          </div>
-        <% end %>
+        <%= render 'public/users/followed_card', user: @user%>
       </section>
       <section class="content bg-light" id ="follower">
-        <% if @user.followers.present? %>
-        <div class="row section-content">
-          <% @user.followers.each do |user| %>
-            <%= render 'public/users/user_card', user:user%>
-          <% end %>
-        </div>
-        <% else %>
-          <div>
-            <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
-          </div>
-        <% end %>
+        <%= render 'public/users/follower_card', user: @user %>
       </section>
     </div>
   </div>

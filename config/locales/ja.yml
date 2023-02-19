@@ -21,6 +21,9 @@ ja:
         is_slope: "勾配"
         address: "住所情報"
         distance: "コース距離"
+      position:
+        lat: '緯度情報'
+        lng: '経度情報'
   enums:
     course:
       suggest_time:

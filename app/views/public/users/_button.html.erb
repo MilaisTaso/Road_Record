@@ -1,0 +1,19 @@
+<span class="btn btn-sm btn-success" id="edit-btn">編集する</span>
+  <script>
+    $(document).on('turbolinks:load', function(){
+      let is_edit = false;
+      $('#edit-btn').click(function(){
+        if (!is_edit) {
+          $("#profile_area").html("<%= j(render 'public/users/form', user:@user) %>");
+          is_edit = true;
+          $('#edit-btn').text('キャンセル');
+        } else {
+          $("#profile_area").html("<%= j(render 'public/users/info', user:@user) %>");
+          is_edit = false;
+          $('#edit-btn').text('編集する');
+          $('#default-icon').removeClass('d-none');
+          $('.edit-icon').remove();
+        }
+      });
+    });
+  </script>

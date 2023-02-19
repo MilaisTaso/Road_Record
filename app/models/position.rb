@@ -5,5 +5,4 @@ class Position < ApplicationRecord
   #バリデーション
   validates :lat, presence: true
   validates :lng, presence: true
-  validates :course_id, presence: true
 end
