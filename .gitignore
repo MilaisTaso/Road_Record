@@ -42,4 +42,3 @@ yarn-debug.log*
 #追記したファイル・ディレクトリ
 .env
 tmp/db/
-db/seeds.rb
