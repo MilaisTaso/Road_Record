@@ -1,4 +1,6 @@
 class Public::FinishesController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     @course = Course.find(params[:course_id])
     finish = current_user.finishes.new(course_id: @course.id)

@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :user_verification, only: [:update,:withdrawal]
+  before_action :authenticate_user!
   
   def show
     User.includes(:favorites);

@@ -1,4 +1,5 @@
 class Public::CoursesController < ApplicationController
+  before_action :authenticate_user!
   before_action :user_verification, only: [:edit, :update, :destroy]
   def new
     @course = Course.new

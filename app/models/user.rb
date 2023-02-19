@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
   #バリデーション
   validates :name, presence: true
-  validates :introduction, length: { minimum: 2, maximum: 200 }
+  validates :introduction, length: { minimum: 2, maximum: 200 }, allow_blank: true
   validates :user_image, blob: { content_type: :image }
 
   def default_image_attach
@@ -56,6 +56,6 @@ class User < ApplicationRecord
   end
   
   def guest_match?
-    self.name = "guestuser" && self.email = "guest@example.com"
+    self.name == "guestuser" && self.email == "guest@example.com"
   end
 end
