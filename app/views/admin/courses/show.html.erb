@@ -1,2 +1,89 @@
-<h1>Admin::Courses#show</h1>
-<p>Find me in app/views/admin/courses/show.html.erb</p>
+<div class="row">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-10 mx-auto">
+    <div class="col-10 mx-auto mb-4" id="show-title">
+      <h1 class=" text-white text-center pt-2 shadow-sm">コース詳細</h2>
+    </div>
+    <div class="swiper mx-auto">
+      <div class="swiper-wrapper">
+        <% @course.course_images.each do |image| %>
+        <div class="swiper-slide">
+          <%= image_tag image.variant(gravity: "Center", resize: "700x400!",
+          crop: "700x400+0+0").processed %>
+        </div>
+        <% end %>
+      </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    <div class="bg-white col-10 mx-auto py-2 mt-4">
+      <div class="row justify-content-start col-12 mx-auto mt-4 align-items-end border-bottom pb-2">
+        <div class="col-8 show-content-wrapper">
+          <h3 class="text-center"><%= @course.title %></h3>
+          <p class="text-muted mb-0 text-center"><%= @course.address%>(<%= @course.distance%>Km)</p>
+        </div>
+        <div class="col-4">
+          <%= link_to admin_user_path(@course.user), class:"text-secondary" do %>
+            <%= image_tag @course.user.user_image.variant(gravity: "Center", resize: "50x50!", crop: "50x50+0+0").processed,
+            class:"user-icon" %>
+            <span class="show-user-link"><%= @course.user.name %></span>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-12 col-md-11 mx-auto">
+        <div class="d-flex col-12 col-sm-10 mt-2 show-table-wrapper">
+          <div class="d-flex col-12 col-sm-12 col-md-6">
+            <div class="table-secondary raounded p-1">おすすめ時間帯:</div>
+            <div class="p-1 ml-2"><%= @course.suggest_time_i18n%></div>
+          </div>
+          <div class="d-flex col-12 col-sm-12 col-md-6">
+            <div class="table-secondary raounded p-1">信号の有無:</div>
+            <div class="p-1 ml-2"><%= @course.signal_condition_i18n%></div>
+          </div>
+        </div>
+        <div class="d-flex col-12 col-sm-10 mt-2 show-table-wrapper">
+          <div class="d-flex col-12 col-sm-12 col-md-6">
+            <div class="table-secondary raounded p-1">交通量:</div>
+            <div class="p-1 ml-2"><%= @course.traffic_volume_i18n%></div>
+          </div>
+          <div class="d-flex col-12 col-sm-12 col-md-6">
+            <div class="table-secondary raounded p-1">勾配:</div>
+            <div class="p-1 ml-2"><%= @course.is_slope_i18n %></div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 align-items-end">
+      <div class="col-6  row mx-auto show-link-btn justify-content-center mb-2">
+        <div  class="mr-4 text-muted">
+           <i class="fas fa-running"></i>
+           <%= @course.favorites.count %>走りたい
+        </div>
+        <div class="text-muted">
+          <i class="fas fa-running"></i>
+          <%= @course.finishes.count %>走った
+        </div>
+      </div>
+        <div class="col-4 px-0 d-inline-flex justify-content-end mr-4">
+          <div>
+            <%= link_to '消去', course_path(@course), method: :delete, class:"btn btn-danger btn-sm", 
+            "data-confirm" => "本当に消去しますか?" %>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div id="map" class="mx-auto mt-4 col-11"></div>
+      <div class="col-9 mx-auto mt-4 h5">詳細情報:</div>
+      <div class="col-9 bg-white mx-auto py-3 px-2">
+        <%= safe_join(@course.introduction.split("\n"), tag(:br))%>
+      </div>
+      <% if @course.comments.present? %>
+      <div class="col-10 mx-auto mt-4">
+        <%= render 'public/comments/index', course: @course %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div id="position_info" data-json="<%= @course.positions.to_json %>"></div>
+<%#= javascript_pack_tag 'public/show' %>
+

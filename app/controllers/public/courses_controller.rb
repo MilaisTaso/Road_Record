@@ -1,5 +1,5 @@
 class Public::CoursesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index, :show]
   before_action :user_verification, only: [:edit, :update, :destroy]
   def new
     @course = Course.new
@@ -9,7 +9,7 @@ class Public::CoursesController < ApplicationController
     if params[:search].present?
       search_courses(params[:search])
     else
-      @courses = Course.all
+      @courses = Course.all.page(params[:page]).per(8)
     end
   end
 
@@ -102,6 +102,7 @@ class Public::CoursesController < ApplicationController
     end
     
     def user_verification
+      return if admin_signed_in?
       course = Course.find(params[:id])
       if course.user != current_user
         redirect_to root_path, flash[:alert] = "編集権限がありません"

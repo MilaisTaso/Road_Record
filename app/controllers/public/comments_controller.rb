@@ -1,5 +1,7 @@
 class Public::CommentsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create]
+  before_action :user_verification, only: [:destroy]
+  
   
   def create
     @course = Course.find(params[:course_id])
@@ -20,5 +22,13 @@ class Public::CommentsController < ApplicationController
   private
     def comment_params
       params.require(:comment).permit(:comment)
+    end
+    
+    def user_verification
+      return if admin_signed_in?
+      comment = Comment.find_by(id: params[:id], course_id: params[:course_id])
+      if comment.user != current_user
+        redirect_to root_path, flash[:alert] = "編集権限がありません"
+      end
     end
 end

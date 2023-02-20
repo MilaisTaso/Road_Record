@@ -1,12 +1,20 @@
 <% course.comments.each do |comment| %>
   <div class="d-flex align-items-center mb-3">
     <div class="mr-2 comment-wrapper">
-      <%= link_to user_path(comment.user), class:"text-secondary" do %>
-        <%= image_tag comment.user.user_image.variant(gravity: "Center", resize: "500x500!", crop: "50x50+0+0").processed,
-        class:"user-icon" %><br>
-        <span><%= comment.user.name %></span>
-      <% end %><br />
-      <% if comment.user == current_user %>
+      <% if admin_signed_in? %>
+        <%= link_to admin_user_path(comment.user), class:"text-secondary" do %>
+          <%= image_tag comment.user.user_image.variant(gravity: "Center", resize: "50x50!", crop: "50x50+0+0").processed,
+          class:"user-icon" %><br>
+          <span><%= comment.user.name %></span>
+        <% end %><br />
+      <% else %>
+        <%= link_to user_path(comment.user), class:"text-secondary" do %>
+          <%= image_tag comment.user.user_image.variant(gravity: "Center", resize: "50x50!", crop: "50x50+0+0").processed,
+          class:"user-icon" %><br>
+          <span><%= comment.user.name %></span>
+        <% end %><br />
+      <% end %>
+      <% if comment.user == current_user || admin_signed_in? %>
         <%= link_to "消去", course_comment_path(course, comment),
         method: :delete, class:"text-danger" %>
       <% end %>

@@ -37,4 +37,5 @@
 - 外部API: Google Maps Platform
 
 ## 使用素材
-- ノーイメージアイコン: フリー素材ブログ様（https://www.shoshinsha-design.com/）
+- ノーイメージアイコン: [フリー素材ブログ](https://www.shoshinsha-design.com)
+- メインビジュアル・ヘッターロゴ: [フォトAC](https://www.photo-ac.com) 

@@ -20,23 +20,23 @@
       </div>
     </div>
     <div class="col-12 row mt-3">
-      <div class="col-12 col-sm-6 mt-2">
+      <div class="col-12 mt-2">
         <h3>投稿したコース</h3>
         <% if @user.courses.present? %>
             <table class="table table-hover mt-4 table-striped bg-white border">
               <thead>
                 <tr>
-                  <th>コースーID</th>
-                  <th>コースー名</th>
-                  <th>走りたい</th>
-                  <th>走った</th>
+                  <th class="text-center align-middle">ID</th>
+                  <th class="text-center align-middle">コースー名</th>
+                  <th class="text-center align-middle">走りたい</th>
+                  <th class="text-center align-middle">走った</th>
                 </tr>
               </thead>
               <tbody>
                 <% @user.courses.each do |course| %>
                   <tr>
-                    <td><%= course.id %></td>
-                    <td class="pb-0">
+                    <td class="text-center align-middle"><%= course.id %></td>
+                    <td class="text-center align-middle pt-1 pb-0">
                       <%= link_to admin_course_path(course), class:"d-inline-flex" do %>
                       <%= image_tag course.course_images[0].variant(
                       gravity: "Center", resize: "35x35!", crop: "35x35+0+0").processed,
@@ -44,8 +44,8 @@
                       <%= course.title %>
                       <% end %>
                     </td>
-                    <td><%= course.favorites.count %></td>
-                    <td><%= course.finishes.count %></td>
+                    <td class="text-center align-middle"><%= course.favorites.count %></td>
+                    <td class="text-center align-middle"><%= course.finishes.count %></td>
                   </tr>
                 <% end %>
               </tbody>
@@ -54,18 +54,18 @@
             <h6 class="pl-3 pt-3 text-muted">投稿はありません。</h6>
         <% end %>
       </div>
-      <div class="col-12 col-sm-6 mt-2">
+      <div class="col-12 mt-2">
         <h3>フォロー</h3>
         <% if @user.following.present? %>
-          <%= render 'admin/users/following', user:user %>
+          <%= render 'admin/users/following', user: @user %>
         <% else %>
           <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
         <% end %>
       </div>
-      <div class="col-12 col-sm-6 mt-2">
+      <div class="col-12 mt-2">
         <h3>フォロワー</h3>
         <% if @user.followers.present? %>
-          <%= render 'admin/users/followers', user:user %>
+          <%= render 'admin/users/followers', user: @user %>
         <% else %>
           <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
         <% end %>

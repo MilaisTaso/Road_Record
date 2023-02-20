@@ -36,7 +36,7 @@ class Public::UsersController < ApplicationController
     end
     
     def user_verification
-      user = User.find(params[id])
+      user = User.find(params[:id])
       if user != current_user
         redirect_to root_path, flash[:alert] = "編集権限がありません"
       end

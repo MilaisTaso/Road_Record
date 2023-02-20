@@ -21,14 +21,16 @@
             <%= render 'public/users/button', user: @user %>
           </div>
           <div class="mt-2">
-            <%= link_to  "退会する", withdrawal_path, method: :patch,
+            <%= link_to  "退会する", withdrawal_path(id: @user), method: :patch,
             class:"btn btn-danger btn-sm", "data-confirm" => "本当に退会しますか?" %>
           </div>
         <% end %>
       <% else %>
-        <div id="relationships_btn">
-          <%= render 'public/relationships/button', user:@user %>
-        </div>
+        <% unless @user.is_deleted? %>
+          <div id="relationships_btn">
+            <%= render 'public/relationships/button', user:@user %>
+          </div>
+        <% end %>
     <% end %>
     </div>
     </div>

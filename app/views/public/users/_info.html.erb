@@ -1,6 +1,9 @@
 <div class="border rounded bg-white mr-2 px-2">
   <p class="h5 text-secondary py-2">
     <span>ニックネーム: <%= user.name %></span>
+    <% if user.is_deleted %>
+      <span class="text-danger">(退会済み)</span>
+    <% end %>
   </p>
   <p class="text-muted h5">プロフィール:</p>
   <% if user.introduction.present? %>
