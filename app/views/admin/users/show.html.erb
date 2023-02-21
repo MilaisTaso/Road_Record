@@ -14,7 +14,7 @@
         <%= render 'public/users/info', user:@user %>
       </div>
         <div class="mt-2">
-          <%= link_to  "消去", user_path(@user), method: :delete,
+          <%= link_to  "消去", admin_user_path(@user), method: :delete,
           class:"btn btn-danger btn-sm", "data-confirm" => "本当に消去しますか?" %>
         </div>
       </div>

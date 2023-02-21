@@ -7,4 +7,9 @@ class Admin::CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
   end
+  
+  def destroy
+    Course.find(params[:id]).destroy
+    redirect_to admin_courses_path
+  end
 end

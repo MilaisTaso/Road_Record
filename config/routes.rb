@@ -22,14 +22,14 @@ Rails.application.routes.draw do
       resource :finishes, only: [:create, :destroy]
     end
     patch 'users/withdrawal', to: 'users#withdrawal', as: 'withdrawal'
-    resources :users, only: [:show, :update, :destroy] do
+    resources :users, only: [:show, :update,] do
       resource :relationships, only:[:create, :destroy]
     end
   end
 
   namespace :admin do
     resources :users, only: [:index, :show, :destroy]
-    resources :courses, only: [:index, :show, :update, :destroy]
+    resources :courses, only: [:index, :show, :destroy]
     get '/', to: 'users#index'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

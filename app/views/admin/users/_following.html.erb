@@ -11,7 +11,7 @@
     <% user.following.each do |user| %>
       <tr>
         <td class="text-center align-middle"><%= user.id %></td>
-          <td class="text-center align-middle">
+          <td class="text-center align-middle pt-1 pb-0">
             <%= link_to admin_user_path(user) do %>
             <%= image_tag user.user_image.variant(
             gravity: "Center", resize: "35x35!", crop: "35x35+0+0").processed %>

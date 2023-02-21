@@ -1,8 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :user_verification, only: [:update,:withdrawal]
-  before_action :authenticate_user!, except: [:destroy
-  ]
-  before_action :authenticate_admin!, only: [:destroy]
+  before_action :authenticate_user!
   
   def show
     User.includes(:favorites);
@@ -23,11 +21,6 @@ class Public::UsersController < ApplicationController
     reset_session
     flash[:notice] = "退会処理を実行いたしました"
     redirect_to root_path
-  end
-  
-  def destroy
-    User.find(params[:id]).destroy
-    redirect_to admin_users_path
   end
 
   private

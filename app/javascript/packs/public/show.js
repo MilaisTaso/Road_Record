@@ -21,12 +21,13 @@ const initMap = () => {
   const mapOptions = {
     center: {
       lat: parseFloat(positions[0].lat),
-      lng: parseFloat(positions[1].lng),
+      lng: parseFloat(positions[0].lng),
     },
     zoom: 15
   };
 
   const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  
   const lineSymbol = {
     path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
   };
@@ -41,7 +42,6 @@ const initMap = () => {
       offset: "100%"
     },],
   });
-
   flightPath.setMap(map);
 }
 
