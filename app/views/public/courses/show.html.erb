@@ -7,8 +7,7 @@
       <div class="swiper-wrapper">
         <% @course.course_images.each do |image| %>
         <div class="swiper-slide">
-          <%= image_tag image.variant(gravity: "Center", resize: "700x400!",
-          crop: "700x400+0+0").processed %>
+          <%= image_tag image.variant(gravity: "Center", resize: "700x400!", crop: "700x400+0+0").processed %>
         </div>
         <% end %>
       </div>
