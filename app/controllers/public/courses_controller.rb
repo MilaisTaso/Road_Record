@@ -99,6 +99,7 @@ class Public::CoursesController < ApplicationController
       if parameters[:is_slope].present?
         @courses = @courses.where(is_slope: parameters[:is_slope])
       end
+      @courses = @courses.page(params[:page]).per(8)
     end
     
     def user_verification
