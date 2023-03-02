@@ -29,6 +29,7 @@ class Course < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :finishes, dependent: :destroy
+  has_many :entities, dependent: :destroy
   has_many_attached :course_images
 
   #バリデーション
@@ -41,24 +42,25 @@ class Course < ApplicationRecord
   validates :address, presence: true
   validates :distance, presence: true, numericality: true
   validates :course_images, blob: { content_type: :image }
-
+  
+  #variantを使うとコンテンツに合わせた大きさにならないので使う頻度が低い
   def default_image_attach
     if !self.course_images.attached?
       self.course_images.attach(io: File.open(Rails.root.join('app/assets/images/no_image.png')), filename: 'no_image.png', content_type: 'image/png')
     end
   end
 
-  #お気に入り登録しているか確認する
+  #走りたい登録しているか確認する
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
 
-  #お気に入り登録しているか確認する
+  #走った登録しているか確認する
   def finished_by?(user)
     finishes.where(user_id: user.id).exists?
   end
 
-  # 都道府県絞り込み検索用スコープ
+  # 絞り込み検索用スコープ
   scope :region_about, ->(region) {where("address like?", "#{region}%")}
   scope :key_word_search, ->(key_word) {where("title like?", "%#{key_word}%")}
 end

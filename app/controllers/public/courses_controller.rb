@@ -32,8 +32,9 @@ class Public::CoursesController < ApplicationController
     @course.distance = params[:course][:distance].to_f
     if @course.save
       caputure_positions(params[:course][:latlng], @course)
+      add_entities(@course, params[:course])
     end
-    if @course.positions.present?
+    if @course.positions.present? && @course.entities.present?
       redirect_to course_path(@course)
     else
       flash[:alert] = 'マップからコース情報を登録して下さい'
@@ -77,7 +78,28 @@ class Public::CoursesController < ApplicationController
         end
       end
     end
-    
+
+    #Natural Lanuage APIを読み込みentityモデルのデータを作成
+    def add_entities(course, parameter)
+      response_data = Language.get_data(parameter[:introduction]).select{|data| data['type'] == "LOCATION" && data['metadata']['wikipedia_url'].present?}
+      if response_data.present?
+        response_data.each do |data|
+          entity = course.entities.new(
+            key_word: data['name']
+          )
+          entity.save
+        end
+      else
+        addresses = parameter[:address].split(',')
+        addresses.each do |address|
+          entity = course.entities.new(
+            key_word: address
+          )
+          entity.save
+        end
+      end
+    end
+
     #チェインメソッドで絞り込み検索を行う
     def search_courses(parameters)
       @courses = Course.all
@@ -101,7 +123,7 @@ class Public::CoursesController < ApplicationController
       end
       @courses = @courses.page(params[:page]).per(8)
     end
-    
+
     def user_verification
       return if admin_signed_in?
       course = Course.find(params[:id])

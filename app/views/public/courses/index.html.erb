@@ -27,17 +27,27 @@
                     <%= course.address%>(<%= course.distance%>Km)
                   </p>
                 <% end %>
-                <div class="d-flex my-2 justify-content-center ml-1 index-link-wrapper">
-                  <div id="favorite_<%= course.id %>">
+                <div class="d-flex mt-2 mb-1 justify-content-center ml-1 index-link-wrapper border-bottom pb-2">
+                  <div class="favorite_<%= course.id %>">
                     <%= render 'public/favorites/button', course:course %>
                   </div>
-                  <div class="ml-1" id="finish_<%= course.id %>">
+                  <div class="ml-1 finish_<%= course.id %>">
                     <%= render 'public/finishes/button', course:course %>
                   </div>
                 </div>
-                  <p class="card-text mt-1 border-top border-bottom card-introduction ml-1">
-                    <%= safe_join(course.introduction.split("\n"), tag(:br))%>
-                  </p>
+                  <!--<p class="card-text mt-1 border-top border-bottom card-introduction ml-1">-->
+                    <%#= safe_join(course.introduction.split("\n"), tag(:br))%>
+                  <!--</p>-->
+                <div class="row justify-content-center">
+                  <div class="col-12 text-center mb-1">
+                    <span>~ 関連ワード ~</span>
+                  </div>
+                  <% course.entities.limit(4).each do |entity| %>
+                    <div class="col-6 text-center px-1">
+                      <span class="key_word_tag shadow-sm"><%= entity.key_word %></span>
+                    </div>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>

@@ -70,6 +70,17 @@ body {
   --swiper-navigation-color: $black;
 }
 
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0 0 0 10px !important;
+  background: #333 !important;
+}
+
+.swiper-pagination-bullet:first-child {
+  margin: 0 !important;
+}
+
 // homes/top
 #main-visual {
   background-image: url(../../assets/images/main-visual.jpg);
@@ -137,7 +148,6 @@ body {
   }
 }
 
-
 .card-wrapper {
   max-height: 250px;
   overflow: hidden;
@@ -197,16 +207,12 @@ body {
   }
 }
 
-
-.swiper-pagination-bullet {
-  width: 12px !important;
-  height: 12px !important;
-  margin: 0 0 0 10px !important;
-  background: #333 !important;
-}
-
-.swiper-pagination-bullet:first-child {
-  margin: 0 !important;
+.key_word_tag {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.4rem;
+  background-image: linear-gradient( -20deg, #0095d9 0%, #0095d5 80%, #fbd26b 80%, #fbd26b 80%);
+  color: #f8f8f8;
+  font-weight: 400;
 }
 
 //course/show
