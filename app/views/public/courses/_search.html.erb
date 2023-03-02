@@ -7,7 +7,7 @@
   <%= form_with scope: :search, url: courses_path, method: :get do |f| %>
     <div class="form-group col-10 pl-0">
         <%= f.label :key_word, "キーワード検索", class:"bg-secondary text-white rounded p-1" %>
-        <%= f.text_field :key_word, class:"form-control" %>
+        <%= f.text_field :key_word, class:"form-control", :placeholder =>" 地名・駅名等" %>
       </div>
     <div class="form-group col-10 pl-0">
       <%= f.label :region, '都道府県', class:"bg-secondary text-white rounded p-1" %>

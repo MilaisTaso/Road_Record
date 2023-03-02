@@ -8,6 +8,7 @@ class Public::CoursesController < ApplicationController
   def index
     if params[:search].present?
       search_courses(params[:search])
+      @courses = Kaminari.paginate_array(@courses).page(params[:page]).per(8)
     else
       @courses = Course.all.page(params[:page]).per(8)
     end
@@ -105,6 +106,12 @@ class Public::CoursesController < ApplicationController
       @courses = Course.all
       if parameters[:key_word].present?
         @courses = @courses.key_word_search(parameters[:key_word])
+        @courses = @courses + Course.region_about(parameters[:key_word])
+        entities = Entity.key_word_search(parameters[:key_word])
+        entities.each do |entity|
+          @courses << entity.course
+        end
+          @courses = @courses.uniq
       end
       if parameters[:region].present?
         @courses = @courses.region_about(parameters[:region])
@@ -121,7 +128,6 @@ class Public::CoursesController < ApplicationController
       if parameters[:is_slope].present?
         @courses = @courses.where(is_slope: parameters[:is_slope])
       end
-      @courses = @courses.page(params[:page]).per(8)
     end
 
     def user_verification
