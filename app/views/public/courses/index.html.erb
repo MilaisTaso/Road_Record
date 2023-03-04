@@ -27,7 +27,7 @@
                     <%= get_address(course.addresses) %>(<%= course.distance%>Km)
                   </p>
                 <% end %>
-                <div class="d-flex mt-2 mb-1 justify-content-center ml-1 index-link-wrapper border-bottom pb-2">
+                <div class="d-flex mt-2 mb-1 ml-1 index-link-wrapper border-bottom pb-2">
                   <div class="favorite_<%= course.id %>">
                     <%= render 'public/favorites/button', course:course %>
                   </div>
@@ -35,12 +35,12 @@
                     <%= render 'public/finishes/button', course:course %>
                   </div>
                 </div>
-                <div class="row justify-content-center flex-wrap flex-row justify-content-start">
+                <div class="row flex-wrap flex-row justify-content-start">
                   <div class="col-12 text-center mb-1">
                     <span>~ 関連ワード ~</span>
                   </div>
                   <% course.entities.limit(4).each do |entity| %>
-                    <div class="text-center px-1 mb-3 ml-2">
+                    <div class="text-center px-1 mb-3 ml-3">
                       <span class="key_word_tag shadow-sm"><%= entity.key_word %></span>
                     </div>
                   <% end %>
