@@ -26,16 +26,14 @@ class Public::CoursesController < ApplicationController
   def create
     #Courseレコードの保存処理
     @course = current_user.courses.new(course_params)
-    #取得したアドレスを配列にした後、反転・結合して正規住所にし、保存
-    address = params[:course][:address].split(',')
-    @course.address = address.reverse.join('')
     #取得した距離を数字に直して、保存
     @course.distance = params[:course][:distance].to_f
     if @course.save
+      add_address(@course, params[:course][:address])
       caputure_positions(params[:course][:latlng], @course)
       add_entities(@course, params[:course])
     end
-    if @course.positions.present? && @course.entities.present?
+    if @course.positions.present? && @course.addresses.present?
       redirect_to course_path(@course)
     else
       flash[:alert] = 'マップからコース情報を登録して下さい'
@@ -46,6 +44,10 @@ class Public::CoursesController < ApplicationController
   def update
     @course = Course.find(params[:id])
     if @course.update(course_params)
+      @course.entities.destroy_all
+      add_entities(@course, params[:course])
+    end
+    if @course.entities.present?
       redirect_to course_path(@course)
     else
       render 'edit'
@@ -63,6 +65,17 @@ class Public::CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:title, :introduction, :suggest_time,:signal_condition,
       :traffic_volume, :is_slope, :distance, course_images:[])
+    end
+    
+    #パラメータからアドレス情報を分解し、レコードへ保存
+    def add_address(course, parameter)
+      addresses = parameter.split(',')
+      addresses.reverse_each do |address|
+        address_data = course.addresses.new(
+          name: address  
+        )
+        address_data.save
+      end
     end
 
     #コースパラメータからポジションテーブルのレコードを作成する
@@ -91,10 +104,9 @@ class Public::CoursesController < ApplicationController
           entity.save
         end
       else
-        addresses = parameter[:address].split(',')
-        addresses.each do |address|
+        course.addresses.each do |address|
           entity = course.entities.new(
-            key_word: address
+            key_word: address.name
           )
           entity.save
         end
@@ -106,15 +118,15 @@ class Public::CoursesController < ApplicationController
       @courses = Course.all
       if parameters[:key_word].present?
         @courses = @courses.key_word_search(parameters[:key_word])
-        @courses = @courses + Course.region_about(parameters[:key_word])
-        entities = Entity.key_word_search(parameters[:key_word])
-        entities.each do |entity|
-          @courses << entity.course
-        end
-          @courses = @courses.uniq
+        search_address(parameters[:key_word])
+        search_entities(parameters[:key_word])
+        @courses += @address_courses if @address_courses.present?
+        @courses += @entity_courses if @entity_courses.present?
+         @courses = @courses.uniq
       end
       if parameters[:region].present?
-        @courses = @courses.region_about(parameters[:region])
+        search_address(parameters[:region])
+        @courses = @courses && @address_courses
       end
       if parameters[:suggest_time].present?
         @courses = @courses.where(suggest_time: parameters[:suggest_time])
@@ -127,6 +139,22 @@ class Public::CoursesController < ApplicationController
       end
       if parameters[:is_slope].present?
         @courses = @courses.where(is_slope: parameters[:is_slope])
+      end
+    end
+    
+    def search_address(parameter)
+      @address_courses = []
+      addresses = Address.region_about(parameter)
+      addresses.each do |address|
+        @address_courses << address.course
+      end
+    end
+    
+    def search_entities(parameter)
+      @entity_courses = []
+      entities = Entity.key_word_search(parameter)
+      entities.each do |entity|
+        @entity_courses << entity.course
       end
     end
 

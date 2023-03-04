@@ -26,6 +26,7 @@ class Course < ApplicationRecord
   #各モデルとの関係性
   belongs_to :user
   has_many :positions, dependent: :destroy
+  has_many :addresses, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :finishes, dependent: :destroy
@@ -39,7 +40,6 @@ class Course < ApplicationRecord
   validates :signal_condition, presence: true
   validates :traffic_volume, presence: true
   validates :is_slope, presence: true
-  validates :address, presence: true
   validates :distance, presence: true, numericality: true
   validates :course_images, blob: { content_type: :image }
   
@@ -61,6 +61,5 @@ class Course < ApplicationRecord
   end
 
   # 絞り込み検索用スコープ
-  scope :region_about, ->(region) {where("address like?", "#{region}%")}
   scope :key_word_search, ->(key_word) {where("title like?", "%#{key_word}%")}
 end

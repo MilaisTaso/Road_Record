@@ -19,7 +19,7 @@
       <div class="row justify-content-start col-12 mx-auto mt-4 align-items-end border-bottom pb-2">
         <div class="col-8 show-content-wrapper">
           <h3 class="text-center"><%= @course.title %></h3>
-          <p class="text-muted mb-0 text-center"><%= @course.address%>(<%= @course.distance%>Km)</p>
+          <p class="text-muted mb-0 text-center"><%= get_address(@course.addresses) %>(<%= @course.distance%>Km)</p>
         </div>
         <div class="col-4">
           <%= link_to user_path(@course.user), class:"text-secondary" do %>
@@ -75,9 +75,9 @@
       <div id="map" class="mx-auto mt-4 col-11"></div>
       <div class="col-9 mx-auto mt-4 bg-white py-4">
         <h5 class="text-center font-weight-blod border-bottom"> - 関連ワード - </h5>
-        <div class="row mt-3">
+        <div class="d-flex flex-wrap mt-3">
           <% @course.entities.each do |entity| %>
-            <div class="col-6 col-sm-4 col-md-3 text-center px-1">
+            <div class="text-center px-1 ml-2">
               <span class="key_word_tag shadow-sm"><%= entity.key_word %></span>
             </div>
           <% end %>

@@ -6,7 +6,7 @@
           <%= image_tag course.course_images[0], size:"200x120", class:"card-img-top border-bottom" %>
           <div class="card-bogy mb-1">
             <h5 class="card-title mt-1 text-center"><%= course.title %></h5>
-            <p class="card-subtitle text-center"><%= course.address%><br/>
+            <p class="card-subtitle text-center"><%= get_address(course.addresses) %><br/>
             (<%= course.distance%>Km)</p>
             <div class="d-flex flex-column justify-content-between">
               <div class="col-10 mx-auto text-center mt-1 pt-2 border-top favorite_<%= course.id %>">

@@ -55,7 +55,7 @@
           <%= f.hidden_field :distance %>
         </div>
         <div class="form-group">
-          <%= f.submit "投稿", class:"btn btn-sm btn-primary ml-3"%>
+          <%= f.submit "#{get_submit_text}", class:"btn btn-sm btn-primary ml-3"%>
           <% if request.path.include?("edit") %>
             <%= link_to '戻る', course_path(@course), class:" ml-2 btn btn-sm btn-success" %>
           <% end %>

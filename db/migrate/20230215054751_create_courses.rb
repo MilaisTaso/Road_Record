@@ -8,7 +8,6 @@ class CreateCourses < ActiveRecord::Migration[6.1]
       t.integer :signal_condition, null: false
       t.integer :traffic_volume, null: false
       t.integer :is_slope, null: false
-      t.string :address, null: false
       t.decimal :distance, precision: 6, scale: 2, null: false
 
       t.timestamps
