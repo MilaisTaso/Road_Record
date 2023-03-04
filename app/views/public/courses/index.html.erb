@@ -43,7 +43,7 @@
                     <span>~ 関連ワード ~</span>
                   </div>
                   <% course.entities.limit(4).each do |entity| %>
-                    <div class="col-6 text-center px-1">
+                    <div class="col-6 text-center px-1 mb-3 mr-auto">
                       <span class="key_word_tag shadow-sm"><%= entity.key_word %></span>
                     </div>
                   <% end %>
