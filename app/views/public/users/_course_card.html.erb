@@ -3,18 +3,19 @@
     <% courses.each do |course| %>
       <div class="col-6 col-md-3 px-1 section-card-wrapper">
         <div class="card p-1">
-          <%= image_tag course.course_images[0], size:"200x120", class:"card-img-top border-bottom" %>
+          <%= link_to course_path(course) do %>
+            <%= image_tag course.course_images[0], size:"200x120", class:"card-img-top border-bottom" %>
+          <% end %>
           <div class="card-bogy mb-1">
             <h5 class="card-title mt-1 text-center"><%= course.title %></h5>
             <p class="card-subtitle text-center"><%= get_address(course.addresses) %><br/>
             (<%= course.distance%>Km)</p>
-            <div class="d-flex flex-column justify-content-between">
-              <div class="col-10 mx-auto text-center mt-1 pt-2 border-top favorite_<%= course.id %>">
-                <%= render 'public/favorites/button', course:course %>
+            <div class="d-flex flex-row flex-wrap mx-auto justify-content-center">
+              <% course.entities.limit(4).each do |entity| %>
+              <div class="text-center mx-2 mt-2 mb-1">
+                <span class="key_word_tag shadow-sm"><%= entity.key_word %></span>
               </div>
-              <div class="col-9 mx-auto text-center mt-2 mb-1 finish_<%= course.id %>">
-                <%= render 'public/finishes/button', course:course %>
-              </div>
+              <% end %> 
             </div>
           </div>
         </div>
@@ -25,4 +26,7 @@
       <h5 class="pl-3 pt-3 text-muted">投稿はありません。</h5>
     </div>
   <% end %>
+</div>
+<div class="text-center mx-auto mt-2 col-4">
+  <%= paginate courses, theme: 'twitter-bootstrap-4' %>
 </div>

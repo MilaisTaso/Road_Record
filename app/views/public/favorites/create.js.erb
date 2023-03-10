@@ -3,12 +3,3 @@ $(".favorite_<%= @course.id %>").html(
 $(".finish_<%= @course.id %>").html(
 "<%= j(render 'public/finishes/button', course: @course) %>");
 
-$("#favorite-tag").html(
-"<%= j(render 'public/favorites/favorite_nav', user: @course.user) %>");
-$("#finish-tag").html(
-"<%= j(render 'public/finishes/finish_nav', user: @course.user) %>");
-
-$("#favorite").html(
-"<%= j(render 'public/users/favorite_card', objects: @course.user.favorites) %>");
-$("#finish").html(
-"<%= j(render 'public/users/favorite_card', objects: @course.user.finishes) %>");

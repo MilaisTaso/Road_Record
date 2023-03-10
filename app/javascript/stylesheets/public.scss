@@ -393,6 +393,11 @@ div > section {
   }
 }
 .section-card-wrapper {
+  .card {
+    height: 245px;
+    overflow: scroll;
+  }
+  
   @include media(sp) {
     max-width: 95%;
     margin: 0 auto;

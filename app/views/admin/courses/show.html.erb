@@ -72,6 +72,16 @@
       </div>
     </div>
       <div id="map" class="mx-auto mt-4 col-11"></div>
+      <div class="col-9 mx-auto mt-4 bg-white py-4">
+        <h5 class="text-center font-weight-blod border-bottom pb-1"> - 関連ワード - </h5>
+        <div class="d-flex flex-wrap mt-3">
+          <% @course.entities.each do |entity| %>
+            <div class="text-center px-1 ml-2">
+              <span class="key_word_tag shadow-sm"><%= entity.key_word %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
       <div class="col-9 mx-auto mt-4 h5">詳細情報:</div>
       <div class="col-9 bg-white mx-auto py-3 px-2">
         <%= safe_join(@course.introduction.split("\n"), tag(:br))%>

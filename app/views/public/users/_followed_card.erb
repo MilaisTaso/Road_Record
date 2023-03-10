@@ -1,20 +1,20 @@
 <div class="row section-content">
-  <% if user.following.present? %>
-      <% user. following.each do |user| %>
+  <% if objects.present? %>
+      <% objects.each do |obj| %>
       <div class="col-6 col-md-3 px-1 section-card-wrapper">
         <div class="card p-1 user-card">
-          <%= link_to user_path(user) do %>
-            <%= image_tag user.user_image, size:"200x120", class:"card-img-top border-bottom" %>
+          <%= link_to user_path(obj) do %>
+            <%= image_tag obj.user_image, size:"200x120", class:"card-img-top border-bottom" %>
           <% end %>
             <div class="card-bogy mb-1">
-              <%= link_to user_path(user) do %>
+              <%= link_to user_path(obj) do %>
                 <h5 class="card-title mt-1 text-center text-muted">
-                <%= user.name %></h5>
+                <%= obj.name %></h5>
               <% end %>
               <p class="card-subtitle text-center border-bottom pb-1 mx-1 text-secondary mx-1">プロフィール</p>
-              <% if user.introduction.present? %>
+              <% if obj.introduction.present? %>
                 <p class="card-subtitle mt-2 mx-1 text-center" id="user-card-text">
-                  <%= safe_join(user.introduction.split("\n"), tag(:br))%>
+                  <%= safe_join(obj.introduction.split("\n"), tag(:br))%>
                 </p>
               <% else %>
                 <p class="card-subtitle mt-2 ml-2 text-center text-muted" id="user-text">記載無し</p>
@@ -28,4 +28,7 @@
         <h5 class="pl-3 pt-3 text-muted">ユーザーはいません。</h5>
       </div>
   <% end %>
+</div>
+<div class="text-center mx-auto mt-2 col-4">
+  <%= paginate objects, theme: 'twitter-bootstrap-4' %>
 </div>

@@ -1,4 +1,7 @@
 $("#relationships_btn").html("<%= j(render 'public/relationships/button', user: @user) %>");
+if ($("#followers-tag").length) {
+  $("#followers-tag").html("<%= j(render 'public/relationships/followers_nav', user: @user) %>");
+}
 if ($('#follower').length) {
-  $('#follower').html("<%= j(render 'public/users/follower_card', user: @user) %>");
+  $('#follower').html("<%= j(render 'public/users/followed_card', objects: @followers) %>");
 }

@@ -1,26 +1,28 @@
 <div class="row">
-  <div class="col-11">
+  <div class="col-11 mx-auto">
     <h2>ユーザー一覧</h2>
-    <table class="table table-hover mt-4 table-striped bg-white border">
+    <table class="table table-hover mt-4 table-striped bg-white border mx-auto">
       <thead>
         <tr>
-          <th>ユーザーID</th>
-          <th>ユーザー名</th>
-          <th>e-mail</th>
-          <th>退会ステータス</th>
+          <th class="text-center align-middle">ユーザーID</th>
+          <th class="text-center align-middle">ユーザー名</th>
+          <th class="text-center align-middle">e-mail</th>
+          <th class="text-center align-middle">退会ステータス</th>
         </tr>
       </thead>
       <tbody>
         <% @users.each do |user| %>
         <tr>
-          <td><%= user.id %></td>
-          <td>
-            <%= link_to admin_user_path(user) do %>
-            <%= user.name %>
+          <td class="text-center align-middle"><%= user.id %></td>
+          <td class="align-middle pt-1 pb-0">
+            <%= link_to admin_user_path(user), class:"text-muted" do %>
+              <%= image_tag user.user_image.variant(
+              gravity: "Center", resize: "35x35!", crop: "35x35+0+0").processed %>
+              <%= user.name %>
             <% end %>
           </td>
-          <td><%= user.email %></td>
-          <td>
+          <td class="text-center align-middle"><%= user.email %></td>
+          <td class="text-center align-middle text-muted">
             <%= user.is_deleted ? '退会済み' : '利用中' %>
           </td>
         </tr>

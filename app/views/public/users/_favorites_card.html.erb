@@ -1,0 +1,34 @@
+<div class="row section-content">
+  <% if objects.present? %>
+    <% objects.each do |obj| %>
+      <div class="col-6 col-md-3 px-1 section-card-wrapper">
+        <div class="card p-1">
+          <%= link_to course_path(obj.course) do %>
+            <%= image_tag obj.course.course_images[0], size:"200x120", class:"card-img-top border-bottom" %>
+          <% end %>
+          <div class="card-bogy mb-1">
+            <h5 class="card-title mt-1 text-center"><%= obj.course.title %></h5>
+            <p class="card-subtitle text-center"><%= get_address(obj.course.addresses) %><br/>
+            (<%= obj.course.distance%>Km)</p>
+            <div class="d-flex flex-column justify-content-between">
+              <div class="d-flex flex-row flex-wrap mx-auto justify-content-center">
+              <% obj.course.entities.limit(4).each do |entity| %>
+              <div class="text-center mx-2 mt-2 mb-1">
+                <span class="key_word_tag shadow-sm"><%= entity.key_word %></span>
+              </div>
+              <% end %> 
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div>
+      <h5 class="pl-3 pt-3 text-muted">投稿はありません。</h5>
+    </div>
+  <% end %>
+</div>
+<div class="text-center mx-auto mt-2 col-4">
+  <%= paginate objects, theme: 'twitter-bootstrap-4' %>
+</div>

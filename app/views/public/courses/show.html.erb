@@ -53,10 +53,10 @@
       </div>
       <div class="row mt-4 align-items-end">
       <div class="col-6  row mx-auto show-link-btn">
-        <div id="favorite_<%= @course.id %>" class="mr-4">
+        <div class="favorite_<%= @course.id %> mr-4">
           <%= render 'public/favorites/button', course: @course %>
         </div>
-        <div id="finish_<%= @course.id %>">
+        <div class="finish_<%= @course.id %>">
           <%= render 'public/finishes/button', course:@course %>
         </div>
       </div>

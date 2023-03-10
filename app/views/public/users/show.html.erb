@@ -40,37 +40,38 @@
           <a class="nav-link nav-tag active text-secondary" href="#course" data-id="course" data-toggle="tab">
             投稿したコース(<%= @user.courses.count %>)</a>
         </li>
-         <li class="nav-item" id="favorite-tag">
-          <%= render 'public/favorites/favorite_nav', user: @user %>
+         <li class="nav-item">
+          <a class="nav-link nav-tag text-secondary" href="#favorite" data-id="favorite" data-toggle="tab">
+          走りたい(<%= @user.favorites.count %>)</a>
         </li>
-        <li class="nav-item" id="finish-tag">
-          <%= render 'public/finishes/finish_nav', user: @user %>
+        <li class="nav-item">
+          <a class="nav-link nav-tag text-secondary" href="#finish" data-id="finish" data-toggle="tab">
+          走った(<%= @user.finishes.count %>)</a>
         </li>
-        <li class="nav-item" >
+        <li class="nav-item">
           <a class="nav-link nav-tag text-secondary" href="#followed" data-id="followed" data-toggle="tab">
           フォロー(<%= @user.following.count %>)</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link nav-tag text-secondary" href="#follower" data-id="follower" data-toggle="tab">
-          フォロワー(<%= @user.followers.count %>)</a>
+        <li class="nav-item" id="followers-tag">
+          <%= render 'public/relationships/followers_nav', user:@user%>
         </li>
       </ul>
     </div>
     <div class="bg-light border-bottom rounded-bottom border-left border-right col-12 tab-content">
       <section class="content active bg-light tab-pane" id ="course">
-        <%= render 'public/users/course_card', courses: @user.courses %>
+        <%= render 'public/users/course_card', courses: @courses %>
       </section>
       <section class="content bg-light tab-pane" id ="favorite">
-        <%= render 'public/users/favorite_card', objects: @user.favorites %>
+        <%= render 'public/users/favorites_card', objects: @favorites %>
       </section>
       <section class="content bg-light tab-pane" id ="finish">
-        <%= render 'public/users/favorite_card', objects: @user.finishes %>
+        <%= render 'public/users/favorites_card', objects: @finishes %>
       </section>
       <section class="content bg-light tab-pane" id ="followed">
-        <%= render 'public/users/followed_card', user: @user%>
+        <%= render 'public/users/followed_card', objects: @followed %>
       </section>
       <section class="content bg-light tab-pane" id ="follower">
-        <%= render 'public/users/follower_card', user: @user %>
+        <%= render 'public/users/followed_card', objects: @followers %>
       </section>
     </div>
   </div>

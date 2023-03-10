@@ -1,0 +1,41 @@
+<div class="col-12 mt-2">
+  <h5>投稿したコース</h5>
+  <% if courses.present? %>
+    <table class="table table-hover mt-3 table-striped bg-white border">
+      <thead>
+        <tr>
+          <th class="text-center align-middle">ID</th>
+          <th class="text-center align-middle">コースー名</th>
+          <th class="text-center align-middle">登録住所</th>
+          <th class="text-center align-middle">走りたい</th>
+          <th class="text-center align-middle">走った</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% courses.each do |course| %>
+        <tr>
+          <td class="text-center align-middle"><%= course.id %></td>
+          <td class="align-middle pt-1 pb-0">
+            <%= link_to admin_course_path(course), class:"d-inline-flex, text-muted" do %>
+              <%= image_tag course.course_images[0].variant(
+              gravity: "Center", resize: "35x35!", crop: "35x35+0+0").processed, class:"pr-1"%>
+              <%= course.title %>
+            <% end %>
+          </td>
+          <td class="text-center align-middle">
+            <%= get_address(course.addresses) %>
+            (<%= course.distance %> km)
+          </td>
+          <td class="text-center align-middle　text-muted"><%= course.favorites.count %></td>
+          <td class="text-center align-middle"><%= course.finishes.count %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="text-center mx-auto mt-5">
+      <%= paginate courses, theme: 'twitter-bootstrap-4' %>
+    </div>
+  <% else %>
+    <h6 class="pl-3 pt-3 text-dark">投稿はありません。</h6>
+  <% end %>
+</div>

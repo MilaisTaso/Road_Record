@@ -21,14 +21,16 @@ Rails.application.routes.draw do
       resource :favorites, only: [:create, :destroy]
       resource :finishes, only: [:create, :destroy]
     end
-    patch 'users/withdrawal', to: 'users#withdrawal', as: 'withdrawal'
+    patch 'users/withdrawal', to: 'users#withdrawal'
     resources :users, only: [:show, :update,] do
       resource :relationships, only:[:create, :destroy]
     end
   end
 
   namespace :admin do
-    resources :users, only: [:index, :show, :destroy]
+    resources :users, only: [:index, :show, :destroy] do
+      patch 'withdrawal', to:'users#withdrawal', as: 'withdrawal'
+    end
     resources :courses, only: [:index, :show, :destroy]
     get '/', to: 'users#index'
   end

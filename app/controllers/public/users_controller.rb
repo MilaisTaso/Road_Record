@@ -5,6 +5,11 @@ class Public::UsersController < ApplicationController
   def show
     User.includes(:favorites);
     @user = User.find(params[:id])
+    @courses = @user.courses.page(params[:page]).per(4)
+    @favorites = @user.favorites.page(params[:page]).per(4)
+    @finishes =  @user.finishes.page(params[:page]).per(4)
+    @followed = @user.following.page(params[:page]).per(4)
+    @followers = @user.followers.page(params[:page]).per(4)
   end
 
   def update
@@ -12,7 +17,7 @@ class Public::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user.id)
     else
-      render 'show';
+      render 'show'
     end
   end
 

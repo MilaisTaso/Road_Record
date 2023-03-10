@@ -1,12 +1,13 @@
 <div class="row">
-  <div class="col-11">
-    <h2>コース一覧</h2>
-    <table class="table table-hover mt-4 table-striped bg-white border">
+  <div class="col-12">
+    <h2 class="ml-2">コース一覧</h2>
+    <table class="table table-hover mt-4 table-striped bg-white border admin-table">
       <thead>
         <tr>
           <th class="text-center align-middle">ID</th>
-          <th class="text-center align-middle">コース画像</th>
           <th class="text-center align-middle">コース名</th>
+          <th class="text-center align-middle">登録住所等</th>
+          <th class="text-center align-middle">キーワード</th>
           <th class="text-center align-middle">ユーザー</th>
         </tr>
       </thead>
@@ -14,15 +15,25 @@
         <% @courses.each do |course| %>
         <tr>
           <td class="text-center align-middle"><%= course.id %></td>
-          <td class="py-1 text-center align-middle"><%= image_tag course.course_images[0].variant(
-          gravity: "Center", resize: "50x50!", crop: "50x50+0+0").processed %></td>
-          <td class="text-center align-middle">
-            <%= link_to admin_course_path(course) do %>
-            <%= course.title %>
+          <td class=" align-middle pt-1 pb-0">
+            <%= link_to admin_course_path(course), class:"d-inline-flex text-muted" do %>
+              <%= image_tag course.course_images[0].variant(
+              gravity: "Center", resize: "35x35!", crop: "35x35+0+0").processed,
+              class:"pr-1"%>
+              <%= course.title %>
             <% end %>
           </td>
           <td class="text-center align-middle">
-            <%= link_to admin_user_path(course.user) do %>
+            <%= get_address(course.addresses) %>
+            (<%= course.distance %> km)
+          </td>
+          <td class="text-center align-middle">
+            <% course.entities.limit(4).each do |entity| %>
+              <span class="key_word_tag shadow-sm"><%= entity.key_word %></span>
+            <% end %>
+          </td>
+          <td class="text-center align-middle">
+            <%= link_to admin_user_path(course.user), class:"text-muted" do %>
               <%= course.user.name %>
             <% end %>
           </td>
