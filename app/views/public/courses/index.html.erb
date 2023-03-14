@@ -7,6 +7,15 @@
     </div>
       <%= render 'public/courses/search'%>
   </div>
+  <div class="col-10 mx-auto rounded mt-3 text-right">
+    <div class="d-inline-block">
+      <%= form_with url: courses_path, method: :get, class:"d-inline-flex" do |f| %>
+        <%= f.select :sort, {'投稿が新しい順':1, '投稿が古い順':2, '走りたいが多い順':3, '閲覧数が多い順':4},
+        {},{ class:"form-control mr-2" } %>
+        <%= f.submit "検索", class:"btn btn-sm btn-info" %>
+      <% end %>
+    </div>
+  </div>
   <div class="row col-12 col-md-12 col-lg-12 col-xl-11 mx-auto col-sm-10">
   <% if @courses.present? %>
     <% @courses.each do |course| %>

@@ -9,13 +9,16 @@ class Public::CoursesController < ApplicationController
     if params[:search].present?
       search_courses(params[:search])
       @courses = Kaminari.paginate_array(@courses).page(params[:page]).per(8)
+    elsif params[:sort].present?
+      sort_courses(params[:sort])
     else
-      @courses = Course.all.page(params[:page]).per(8)
+      @courses = Course.order(created_at: :desc).page(params[:page]).per(8)
     end
   end
 
   def show
     @course = Course.find(params[:id])
+    impressionist(@course, nil, unique: [:ip_address]) # 追記
     @comment = Comment.new
   end
 
@@ -122,7 +125,7 @@ class Public::CoursesController < ApplicationController
         search_entities(parameters[:key_word])
         @courses += @address_courses if @address_courses.present?
         @courses += @entity_courses if @entity_courses.present?
-         @courses = @courses.uniq
+        @courses = @courses.uniq
       end
       if parameters[:region].present?
         search_address(parameters[:region])
@@ -155,6 +158,21 @@ class Public::CoursesController < ApplicationController
       entities = Entity.key_word_search(parameter)
       entities.each do |entity|
         @entity_courses << entity.course
+      end
+    end
+    
+    #条件に合わせてレコードのソートを行う
+    def sort_courses(parameter)
+      case parameter
+        when '1'
+          @courses = Course.order(created_at: :desc).page(params[:page]).per(8)
+        when '2'
+          @courses = Course.order(created_at: :asc).page(params[:page]).per(8)
+        when '3'
+          courses = Course.includes(:favorites).sort {|a,b| b.favorites.size <=> a.favorites.size}
+          @courses = Kaminari.paginate_array(courses).page(params[:page]).per(8)
+        when '4'
+          @courses = Course.order(impressions_count: 'DESC').page(params[:page]).per(8)
       end
     end
 

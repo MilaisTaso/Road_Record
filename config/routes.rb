@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :show, :destroy] do
-      patch 'withdrawal', to:'users#withdrawal', as: 'withdrawal'
+      patch 'withdrawal', to:'users#withdrawal'
     end
     resources :courses, only: [:index, :show, :destroy]
     get '/', to: 'users#index'

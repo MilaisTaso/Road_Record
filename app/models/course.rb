@@ -32,6 +32,7 @@ class Course < ApplicationRecord
   has_many :finishes, dependent: :destroy
   has_many :entities, dependent: :destroy
   has_many_attached :course_images
+  is_impressionable counter_cache: true
 
   #バリデーション
   validates :title, presence: true, length: { minimum: 2, maximum: 40 }

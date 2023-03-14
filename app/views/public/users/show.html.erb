@@ -21,7 +21,7 @@
             <%= render 'public/users/button', user: @user %>
           </div>
           <div class="mt-2">
-            <%= link_to  "退会する", withdrawal_path(id: @user), method: :patch,
+            <%= link_to  "退会する", users_withdrawal_path(id: @user), method: :patch,
             class:"btn btn-danger btn-sm", "data-confirm" => "本当に退会しますか?" %>
           </div>
         <% end %>
@@ -38,19 +38,19 @@
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
           <a class="nav-link nav-tag active text-secondary" href="#course" data-id="course" data-toggle="tab">
-            投稿したコース(<%= @user.courses.count %>)</a>
+            投稿したコース(<%= @courses.load.size %>)</a>
         </li>
          <li class="nav-item">
           <a class="nav-link nav-tag text-secondary" href="#favorite" data-id="favorite" data-toggle="tab">
-          走りたい(<%= @user.favorites.count %>)</a>
+          走りたい(<%= @favorites.load.size %>)</a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-tag text-secondary" href="#finish" data-id="finish" data-toggle="tab">
-          走った(<%= @user.finishes.count %>)</a>
+          走った(<%= @finishes.load.size %>)</a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-tag text-secondary" href="#followed" data-id="followed" data-toggle="tab">
-          フォロー(<%= @user.following.count %>)</a>
+          フォロー(<%= @followed.load.size %>)</a>
         </li>
         <li class="nav-item" id="followers-tag">
           <%= render 'public/relationships/followers_nav', user:@user%>
